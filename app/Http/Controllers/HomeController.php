@@ -23,10 +23,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        return view('home');
-    }
+  
 
     public function addIdea(Request $request)
     {  
@@ -35,12 +32,15 @@ class HomeController extends Controller
         $idea->description = $request->description;
         $idea->userId = Auth::id();
         $idea->save();
-     }
+    }
 
     public function displayIdea()
     {  
-        $ideas = Idea::where('userId', Auth::id())->get();
-         return view('home')->with('ideas',$ideas);
+        $idea = new Idea;
+        $idea= $idea->fresh();
+    //    $ideas = Idea::orderBy('CREATED_AT', 'desc')->where('userId', Auth::id())->get();
+        $ideas = Idea::orderBy('CREATED_AT', 'desc')->get();
+        return view('home')->with('ideas',$ideas);
     }
-
+ 
 }

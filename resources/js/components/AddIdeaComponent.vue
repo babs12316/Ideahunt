@@ -72,9 +72,9 @@
  <!-- <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>-->
 <style lang="scss" scoped>
 .addIcon {
-  position: fixed;
-  right: 8%;
-  top: 14%;
+  position: inherit; 
+  float:right;
+  margin-top: -66px;
   font-size: 30px;
   color: green;
 }
@@ -99,12 +99,12 @@ export default {
     title: {
       required,
       minLength: minLength(4),
-      maxLength: maxLength(5)
+      maxLength: maxLength(50)
     },
     description: {
       required,
       minLength: minLength(4),
-      maxLength: maxLength(5)
+      maxLength: maxLength(300)
     }
   },
   methods: {
@@ -138,12 +138,12 @@ export default {
             description: this.description          
           })
           .then(function(response) {
+           location.reload();
             currentObj.output = response.data;
           })
           .catch(function(error) {
             currentObj.output = error;
           });
-
         // Hide the modal manually
         this.$nextTick(() => {
           this.$refs.modal.hide();

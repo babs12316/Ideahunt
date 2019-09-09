@@ -40,6 +40,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('addidea-component', require('./components/AddIdeaComponent.vue').default);
 Vue.component('card-component', require('./components/CardComponent.vue').default);
 Vue.component('cards-component', require('./components/CardsComponent.vue').default);
+Vue.component('card-detail-component', require('./components/CardDetailViewComponent.vue').default);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -14,10 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-//Route::get('/home', 'test@index');
 Route::post('/home', 'HomeController@addIdea')->name('home');
 Route::get('/home', 'HomeController@displayIdea')->name('display');
