@@ -11689,15 +11689,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['title', 'description']
+});
 
 /***/ }),
 
@@ -11719,12 +11713,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['title', 'ideas']
+  props: ["title", "ideas"],
+  data: function data() {
+    return {
+      ideaArray: ""
+    };
+  },
+  mounted: function mounted() {
+    var vm = this;
+    vm.$nextTick(function () {
+      vm.ideaArray = JSON.parse(vm.ideas); // Parse ideas to read as an array in vue
+    });
+  }
 });
 
 /***/ }),
@@ -44311,16 +44312,6 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "mt-3" }, [
-        _vm._v(
-          "\n    Submitted Title is:" +
-            _vm._s(this.submittedTitle) +
-            "\n    Submitted Description is:" +
-            _vm._s(this.submittedDescription) +
-            "\n  "
-        )
-      ]),
-      _vm._v(" "),
       _c(
         "b-modal",
         {
@@ -44487,12 +44478,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
-    _c("h2", { staticClass: "card-title" }, [_vm._v("I am title")]),
+    _c("h2", { staticClass: "card-title" }, [_vm._v(_vm._s(this.title))]),
     _vm._v(" "),
     _c("p", { staticClass: "card-description" }, [
-      _vm._v(
-        "\n    I am stud.I am description I am description I am description I am description\n    I am description I am description I am description I am description I am description\n    I am description I am description I am description I am description I am description.\n    I am description.I am description I am description I am description I am description\n    I am description I am description I am description I am description I am description\n    I am description I am description I am description I am description I am description\n    I am description.I am description I am description I am description I am description\n    I am description I am description I am description I am description I am description\n    I am description I am description I am description I am description I am description\n  "
-      )
+      _vm._v("\n    " + _vm._s(this.description) + "\n  ")
     ]),
     _vm._v(" "),
     _c("div", [
@@ -44533,22 +44522,19 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    [
-      _c("p", [_vm._v(" Hello " + _vm._s(_vm.title) + " ")]),
-      _vm._v(" "),
-      _c("p", [_vm._v(" I am idea ")]),
-      _vm._v(" "),
-      _vm._l(_vm.ideas, function(idea) {
-        return _c("li", { key: idea.id }, [
-          _vm._v("\n      " + _vm._s(idea) + "\n   ")
-        ])
-      }),
-      _vm._v(" "),
-      _c("card-component"),
-      _vm._v(" "),
-      _c("card-component")
-    ],
-    2
+    _vm._l(this.ideaArray, function(idea) {
+      return _c(
+        "div",
+        { key: idea.id },
+        [
+          _c("card-component", {
+            attrs: { title: idea.title, description: idea.description }
+          })
+        ],
+        1
+      )
+    }),
+    0
   )
 }
 var staticRenderFns = []
@@ -59045,8 +59031,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\DBABHALE\myproject\test\blog\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\DBABHALE\myproject\test\blog\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\DBABHALE\myproject\test\Ideahunt-updated\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\DBABHALE\myproject\test\Ideahunt-updated\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

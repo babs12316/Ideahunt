@@ -1,16 +1,8 @@
 <template>
   <div class="card">
-    <h2 class="card-title">I am title</h2>
+    <h2 class="card-title">{{this.title}}</h2>
     <p class="card-description">
-      I am stud.I am description I am description I am description I am description
-      I am description I am description I am description I am description I am description
-      I am description I am description I am description I am description I am description.
-      I am description.I am description I am description I am description I am description
-      I am description I am description I am description I am description I am description
-      I am description I am description I am description I am description I am description
-      I am description.I am description I am description I am description I am description
-      I am description I am description I am description I am description I am description
-      I am description I am description I am description I am description I am description
+      {{this.description}}
     </p>
     <div>
       <span>
@@ -24,7 +16,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props:['title','description']
+};
 </script>
 
 <style lang="scss" scoped>
@@ -32,7 +26,6 @@ export default {};
   padding: 2%;
   margin: 5%;
 }
-
 .card span {
   margin-right: 5%;
 }
@@ -61,7 +54,6 @@ export default {};
     background: $bgColor;
   }
 }
-
 .card-description {
   @include multiLineEllipsis(
     $lineHeight: 1.2em,

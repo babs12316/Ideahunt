@@ -8,10 +8,10 @@
         v-b-modal.modal-prevent-closing
       />
     </div>
-    <div class="mt-3">
+  <!--  <div class="mt-3">
       Submitted Title is:{{this.submittedTitle}}
       Submitted Description is:{{this.submittedDescription}}
-    </div>
+    </div>-->
 
     <b-modal
       id="modal-prevent-closing"

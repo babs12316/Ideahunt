@@ -9,21 +9,16 @@
 
                 <div class="card-body">
                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
                     @endif
-                   
-                     @foreach($ideas as $row)
-                <tr>
-                    <td>{{$row->title}}</td>
-                </tr> 
-                @endforeach
-               
-              <addidea-component></addidea-component>
-             
-        <cards-component title="{{ 'i am title' }}" ideas="{{ $ideas }}"></cards-component>
-                     </div>
+                    <!-- Component to add ideas -->
+                    <addidea-component></addidea-component>
+
+                    <!-- pass ides array from received from database to card component -->
+                    <cards-component ideas=" {{  json_encode($ideas)  }} "></cards-component>
+                </div>
             </div>
         </div>
     </div>
