@@ -1,6 +1,7 @@
 <template>
+<!--  v-b-modal.detail-model-->
   <div class="card" :id="cardId">
-    <a href="#" v-on:click="detail">
+    <a :href="url"  @click="cardClicked($event)" >
       <h2 class="card-title">{{this.title}}</h2>
       <p class="card-description">{{this.description}}</p>
       <font-awesome-icon icon="comment" />&nbsp;&nbsp;10
@@ -10,9 +11,13 @@
         <font-awesome-icon icon="thumbs-up" />&nbsp;&nbsp;50
       </div>
     </div>
-    <card-detail-component :class="hideDetailView" :title="title" :description="description"></card-detail-component>
+    
+ <!--   <card-detail-component :class="hideDetailView" :title="title" :description="description"></card-detail-component>-->
   </div>
+  
+
 </template>
+
 
 
 <script>
@@ -20,18 +25,28 @@ export default {
   props: ["title", "description", "cardId"],
   data() {
     return {
-     hideDetailView: "hide"
+     url:"#"
     };
   },
-  methods: {
-    detail: function(event) {
-      if (this.hideDetailView == "hide") {
-        this.hideDetailView = "show";
-      } else {
-        this.hideDetailView = "hide";
-      }
+  methods:{
+    cardClicked:function(event){
+      console.log(event.target.parentElement.parentElement.id);
+      const axios = require("axios");
+        let currentObj = this;
+        let clickedCardId= event.target.parentElement.parentElement.id;
+        this.url="/home/"+clickedCardId;
+         alert("i am clicked"+clickedCardId);
+        axios
+          .get("/home/?id="+clickedCardId)
+          .then(function(response) {
+            currentObj.output = response.data;
+          })
+          .catch(function(error) {
+            currentObj.output = error;
+          });
     }
   }
+ 
 };
 </script>
 

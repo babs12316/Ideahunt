@@ -17,3 +17,6 @@ Route::get('/', function () {
 Auth::routes();
 Route::post('/home', 'HomeController@addIdea')->name('home');
 Route::get('/home', 'HomeController@displayIdea')->name('display');
+
+//Route::get('/home/?id={id}', 'HomeController@cardData')->name('display');
+Route::get('/home/{id}', 'HomeController@cardData')->name('display');

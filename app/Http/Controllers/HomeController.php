@@ -42,5 +42,18 @@ class HomeController extends Controller
         $ideas = Idea::orderBy('CREATED_AT', 'desc')->get();
         return view('home')->with('ideas',$ideas);
     }
+
+    public function cardData(Request $request)
+    {
+      
+        //$idea = new Idea;
+      //  $idea->userId = $request->id;
+        $idea = Idea::find($request->id);
+       // $idea = Idea::where('userId','=',$idea->userId)->get();
+      //  dd("i am callied".$idea);
+        return view('idea')->with('idea', $idea);
+
+      //  return redirect('home')->with('idea', $idea);
+    }
  
 }
