@@ -12,11 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
 Auth::routes();
 Route::post('/home', 'HomeController@addIdea')->name('home');
 Route::get('/home', 'HomeController@displayIdea')->name('display');
 
 //Route::get('/home/?id={id}', 'HomeController@cardData')->name('display');
-Route::get('/home/{id}', 'HomeController@cardData')->name('display');
+Route::get('/home/idea/{id}', 'IdeaDetailController@cardData')->name('display');
+Route::post('/home/idea/{id}', 'IdeaDetailController@insertLikes')->name('display');

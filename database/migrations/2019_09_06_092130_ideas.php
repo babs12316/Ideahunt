@@ -18,6 +18,7 @@ class Ideas extends Migration
             $table->string('title');
             $table->mediumText('description');
             $table->integer('userId');
+            $table->integer('likes');
             $table->timestamps();
         });
     }

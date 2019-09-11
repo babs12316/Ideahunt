@@ -1,52 +1,64 @@
 <template>
-<!--  v-b-modal.detail-model-->
-  <div class="card" :id="cardId">
-    <a :href="url"  @click="cardClicked($event)" >
-      <h2 class="card-title">{{this.title}}</h2>
-      <p class="card-description">{{this.description}}</p>
-      <font-awesome-icon icon="comment" />&nbsp;&nbsp;10
+<div>
+  <div class="card" :id="cardId" :ideaId="cardId"  @click="cardClicked($event)">
+    <a :href="url" :ideaId="cardId"  >
+      <h2 class="card-title" :ideaId="cardId">{{this.title}}</h2>
+      <p class="card-description" :ideaId="cardId">{{this.description}}</p>
+     <!-- <font-awesome-icon icon="comment" />&nbsp;&nbsp;10-->
     </a>
-    <div>
-      <div class="like">
-        <font-awesome-icon icon="thumbs-up" />&nbsp;&nbsp;50
+ </div>
+   <div class="like" >
+      <font-awesome-icon icon="thumbs-up" :ideaId="cardId"  @click="likeClicked($event)" />&nbsp;&nbsp;{{this.numberLikes}}
       </div>
-    </div>
-    
- <!--   <card-detail-component :class="hideDetailView" :title="title" :description="description"></card-detail-component>-->
-  </div>
-  
-
+  </div>    
 </template>
-
-
 
 <script>
 export default {
-  props: ["title", "description", "cardId"],
+  props: ["title", "description", "cardId","likes"],
   data() {
     return {
-     url:"#"
+      url: "#",
+      numberLikes:this.likes
     };
   },
-  methods:{
-    cardClicked:function(event){
-      console.log(event.target.parentElement.parentElement.id);
+  methods: {
+    cardClicked: function(event) {
+      alert("i am clicked"+event.target.getAttribute('ideaId'));
+      console.log(event.target.getAttribute('ideaId'));
       const axios = require("axios");
+      let currentObj = this;
+      let clickedCardId = event.target.getAttribute('ideaId');
+      this.url = "/home/idea/" + clickedCardId;
+      axios
+        .get("/home/?id=" + clickedCardId)
+        .then(function(response) {
+          currentObj.output = response.data;
+        })
+        .catch(function(error) {
+          currentObj.output = error;
+        });
+    },
+    likeClicked:function(event) {
+        this.numberLikes++;
+       let clickedCardId=event.target.parentElement.getAttribute('ideaId');
+          // send data to submit
+        const axios = require("axios");
         let currentObj = this;
-        let clickedCardId= event.target.parentElement.parentElement.id;
-        this.url="/home/"+clickedCardId;
-         alert("i am clicked"+clickedCardId);
         axios
-          .get("/home/?id="+clickedCardId)
+          .post("/home/idea/"+clickedCardId, {
+            cardId: clickedCardId,
+            likes:this.numberLikes         
+          })
           .then(function(response) {
             currentObj.output = response.data;
           })
           .catch(function(error) {
             currentObj.output = error;
           });
-    }
+     
+    }  
   }
- 
 };
 </script>
 
@@ -60,6 +72,8 @@ export default {
 .card {
   padding: 2%;
   margin: 5%;
+  z-index:-1;
+  position:inherit;
 }
 .card span {
   margin-right: 5%;
@@ -68,16 +82,21 @@ export default {
   text-align: left;
   color: #000;
 }
-.card:hover {
+ .card:hover{
   cursor: pointer;
   -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
 }
 .like {
-  margin-left: 75px;
-  margin-top: -23px;
+  margin-left: 45px;
+  margin-top: -60px;
 }
+.like:hover{
+  cursor: pointer;
+}
+
+
 .card a:hover {
   text-decoration: none;
 }
@@ -120,4 +139,14 @@ export default {
     $bgColor: white
   );
 }
+
+@media (max-width: 992px) {
+.card{
+  padding-bottom:10%;
+}  
+.like{
+    margin-left: 7%;
+    margin-top: -14%; 
+   }
+}    
 </style>

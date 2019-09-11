@@ -10644,3 +10644,9 @@ a.text-dark:focus {
   }
 }
 
+@media (max-width: 992px) {
+  .card {
+    padding-bottom: 5%;
+  }
+}
+

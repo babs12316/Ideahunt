@@ -31,6 +31,7 @@ class HomeController extends Controller
         $idea->title = $request->title;
         $idea->description = $request->description;
         $idea->userId = Auth::id();
+        $idea->likes= 0;
         $idea->save();
     }
 
@@ -43,17 +44,4 @@ class HomeController extends Controller
         return view('home')->with('ideas',$ideas);
     }
 
-    public function cardData(Request $request)
-    {
-      
-        //$idea = new Idea;
-      //  $idea->userId = $request->id;
-        $idea = Idea::find($request->id);
-       // $idea = Idea::where('userId','=',$idea->userId)->get();
-      //  dd("i am callied".$idea);
-        return view('idea')->with('idea', $idea);
-
-      //  return redirect('home')->with('idea', $idea);
-    }
- 
 }

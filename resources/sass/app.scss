@@ -6,3 +6,9 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+@media (max-width: 992px) {
+.card {
+    padding-bottom:5%; 
+  }
+}
