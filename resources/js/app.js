@@ -4,7 +4,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-//require('./bootstrap');
+require('./bootstrap');
 import BootstrapVue from 'bootstrap-vue' 
 
 window.Vue = require('vue');
@@ -15,7 +15,7 @@ Vue.use(BootstrapVue)
 
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faBars, faPlusCircle,faComment,faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faPlusCircle,faComment,faThumbsUp,faEdit } from "@fortawesome/free-solid-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -23,7 +23,7 @@ library.add(faBars);
 library.add(faComment);
 library.add(faPlusCircle);
 library.add(faThumbsUp);
-
+library.add(faEdit);
 
 /**
  * The following block of code may be used to automatically register your
@@ -41,6 +41,7 @@ Vue.component('addidea-component', require('./components/AddIdeaComponent.vue').
 Vue.component('card-component', require('./components/CardComponent.vue').default);
 Vue.component('cards-component', require('./components/CardsComponent.vue').default);
 Vue.component('card-detail-component', require('./components/CardDetailViewComponent.vue').default);
+Vue.component('editidea-component', require('./components/EditIdeaComponent.vue').default);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 /**
  * Next, we will create a fresh Vue application instance and attach it to

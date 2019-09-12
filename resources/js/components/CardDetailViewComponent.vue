@@ -7,7 +7,7 @@
       <div class="d-block text-center">
         <p>{{description}}</p>
       </div>
-       <font-awesome-icon icon="thumbs-up" />&nbsp;&nbsp;50
+       <font-awesome-icon icon="thumbs-up" />&nbsp;&nbsp;{{this.likes}}
       <b-button class="mt-3" block @click="$bvModal.hide('cardDetailModal');close();">Close (X)</b-button>
     </b-modal>
   </div>
@@ -15,13 +15,13 @@
 
 <script>
 export default {
-  props: ["title", "description"],
+  props: ["title", "description","likes"],
   mounted() {
     this.$refs["cardDetailModal"].show();
   },
   methods: {
     close: function() {
-      window.location.href = "/home";
+     window.history.go(-1);
     }
   }
 };

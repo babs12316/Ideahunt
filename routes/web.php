@@ -21,3 +21,6 @@ Route::get('/home', 'HomeController@displayIdea')->name('display');
 //Route::get('/home/?id={id}', 'HomeController@cardData')->name('display');
 Route::get('/home/idea/{id}', 'IdeaDetailController@cardData')->name('display');
 Route::post('/home/idea/{id}', 'IdeaDetailController@insertLikes')->name('display');
+
+Route::get('/home/myIdeas', 'MyIdeasController@show')->name('display');
+Route::get('/home/myIdeas/edit/{id}', 'ModifyIdeaController@edit')->name('display');

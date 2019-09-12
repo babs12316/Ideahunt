@@ -1,20 +1,21 @@
 <template>
   <div>
   
+  
       <!-- Read ideas array & pass title and description to Card component -->
     <div v-for="idea in this.ideaArray" :key="idea.id">
-         <card-component :title="idea.title" :description="idea.description" :cardId="idea.id" :likes="idea.likes"></card-component>
+         <card-component :title="idea.title" :description="idea.description" :cardId="idea.id" :likes="idea.likes" :myIdeas="myideas"></card-component>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["title", "ideas"],
+  props: ["title", "ideas","myideas"],
   data: function() {
     return {
-      ideaArray: ""
-    };
+      ideaArray: "",
+     };
   },
   mounted() {
     let vm = this;

@@ -1,6 +1,7 @@
 <template>
 <div>
   <div class="card" :id="cardId" :ideaId="cardId"  @click="cardClicked($event)">
+   <a :href="editurl" v-if="this.myIdeas==='1'"><font-awesome-icon icon="edit"  @click="editClicked($event)" /></a>
     <a :href="url" :ideaId="cardId"  >
       <h2 class="card-title" :ideaId="cardId">{{this.title}}</h2>
       <p class="card-description" :ideaId="cardId">{{this.description}}</p>
@@ -15,16 +16,17 @@
 
 <script>
 export default {
-  props: ["title", "description", "cardId","likes"],
+  props: ["title", "description", "cardId","likes","myIdeas"],
   data() {
     return {
       url: "#",
-      numberLikes:this.likes
+      numberLikes:this.likes,
+      editurl:"#"
     };
   },
   methods: {
     cardClicked: function(event) {
-      alert("i am clicked"+event.target.getAttribute('ideaId'));
+     // alert("i am clicked"+event.target.getAttribute('ideaId'));
       console.log(event.target.getAttribute('ideaId'));
       const axios = require("axios");
       let currentObj = this;
@@ -57,7 +59,14 @@ export default {
             currentObj.output = error;
           });
      
-    }  
+    },
+    editClicked:function(event) {
+      alert("i am clicked");
+         console.log("my edit id is"+ event.target.parentElement.parentElement.getAttribute('ideaId'));
+          let clickedCardId=event.target.parentElement.parentElement.getAttribute('ideaId');
+            this.editurl = "/home/myIdeas/edit/" + clickedCardId;
+
+    } 
   }
 };
 </script>
