@@ -13,5 +13,7 @@ class MyIdeasController extends Controller
     return view('myIdeas')->with('myIdeas',$ideas);
    }
 
+  
+  
    
 }

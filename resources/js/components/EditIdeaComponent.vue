@@ -1,125 +1,86 @@
 <template>
   <div>
- 
-      <b-modal id="cardDetailModal" ref="cardDetailModal"  hide-footer>
+    <b-modal id="bv-modal-example" ref="modal" hide-footer>
       <template v-slot:modal-title>
-     <h2> {{title}} </h2>
+        Using
+        <code>$bvModal</code> Methods
       </template>
-   
-      <b-button class="mt-3" block @click="$bvModal.hide('cardDetailModal');close();">Close (X)</b-button>
-    </b-modal>
-
-    
-    <div v-for="idea in this.editIdeaArray" :key="idea.id">
-         <b-modal
-      id="modal-prevent-closing"
-      ref="modal"
-      title="Submit Your Idea"
-      @show="resetModal"
-      @hidden="resetModal"
-      @ok="submit"
-    >  
-      <form @submit.prevent="submit">
-        <b-form-group id="title-input-group" label="Title" label-for="title">
-          <b-form-input
-            v-model="idea.title"
-            :class="{ 'form-group--error': $v.title.$error }"
-            placeholder="testing"
-          ></b-form-input>
-        </b-form-group>
-         <div class="error" v-if="submitStatus==='ERROR'&&!$v.title.required">Title is required</div>
-        <div
-          class="error"
-          v-if="!$v.title.minLength"
-        >Title must have at least {{$v.title.$params.minLength.min}} letters.</div>
-        <div
-          class="error"
-          v-if="!$v.title.maxLength"
-        >Title can have at maximum {{$v.title.$params.maxLength.max}} letters.</div>
-        <b-form-group id="description-input-group" label="Description" label-for="Description">
+      <div class="d-block text-center">
+        <div v-for="idea in this.ideaArray" :key="idea.id" :id="idea.id" class="submit">
+          <b-form-input id="title" v-model="idea.title" placeholder="Enter your name"></b-form-input>
           <b-form-textarea
-            :placeholder="idea.description"
+            id="description"
+            v-model="idea.description"
+            placeholder="Enter something..."
             rows="3"
             max-rows="6"
-            v-model="idea.description"
-            :class="{ 'form-group--error': $v.description.$error }"
           ></b-form-textarea>
-        </b-form-group>
-        <!--  <div
-          class="error"
-          v-if="submitStatus==='ERROR'&&!$v.description.required"
-        >Description is required</div>-->
-        <div
-          class="error"
-          v-if="!$v.description.minLength"
-        >Description must have at least {{$v.description.$params.minLength.min}} letters.</div>
-        <div
-          class="error"
-          v-if="!$v.description.maxLength"
-        >Description can have at maximum {{$v.description.$params.maxLength.max}} letters.</div>
-      </form>
-      </b-modal>
-    </div>
+        </div>
+      </div>
+      <b-button class="mt-1" @click="save()">Save</b-button>
+      <b-button class="mt-1" @click="close()">Cancel</b-button>
+    </b-modal>
   </div>
 </template>
 
-<script>
-import { required, minLength, maxLength } from "vuelidate/lib/validators";
 
+
+<style lang="scss">
+.close {
+  display:none;
+}
+
+.form-control {
+  margin-bottom: 20px;
+}
+</style>
+
+
+<script>
 export default {
   props: ["editidea"],
-  data: function() {
+  data() {
     return {
-      editIdeaArray: "",
       title: "",
       description: "",
-       submitStatus: null
+      ideaArray: "",
+      ideaId: ""
     };
   },
-  validations: {
-    title: {
-      required,
-      minLength: minLength(4),
-      maxLength: maxLength(50)
-    },
-    description: {
-      required,
-      minLength: minLength(4),
-      maxLength: maxLength(300)
-    }
-  },
-
   mounted() {
-      this.$refs["cardDetailModal"].show();
+    this.$refs["modal"].show();
     let vm = this;
     vm.$nextTick(function() {
-      vm.editIdeaArray = JSON.parse(vm.editidea); // Parse ideas to read as an array in vue
+      vm.ideaArray = JSON.parse(vm.editidea); // Parse ideas to read as an array in vue
     });
   },
   methods: {
-       resetModal() {
-      this.title = "";
-      this.description = "";
+    close(){
+      this.$refs["modal"].hide();
+       window.history.go(-1);
     },
-    submit(bvModalEvt) {
-        bvModalEvt.preventDefault();
-         if (this.$v.$invalid) {
-        this.submitStatus = "ERROR";
-      } else {
-        // do your submit logic here
-        this.submitStatus = "PENDING";
-        setTimeout(() => {
-          this.submitStatus = "OK";
-        }, 500);
-      }  
-        // Hide the modal manually
-        this.$nextTick(() => {
-          this.$refs.modal.hide();
+    save() {
+      alert("i am saved");
+     // window.history.go(-1);
+      // send data to submit
+      const axios = require("axios");
+      let currentObj = this;
+      axios
+        .post("/home/myIdeas", {
+          title: $("#title").val(),
+          description: $("#description").val(),
+          id: $("div.submit").attr("id")
+        })
+        .then(function(response) {
+          window.history.go(-1);
+          currentObj.output = response.data;
+        })
+        .catch(function(error) {
+          currentObj.output = error;
         });
+      this.$refs["modal"].hide();
+      // window.history.go(-1);
     }
   }
 };
 </script>
-
-<style lang="scss" scoped>
-</style>

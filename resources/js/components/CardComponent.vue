@@ -1,7 +1,8 @@
 <template>
 <div>
   <div class="card" :id="cardId" :ideaId="cardId"  @click="cardClicked($event)">
-   <a :href="editurl" v-if="this.myIdeas==='1'"><font-awesome-icon icon="edit"  @click="editClicked($event)" /></a>
+   <a :href="editurl" :ideaId="cardId" v-if="this.myIdeas==='1'"><font-awesome-icon icon="edit" :ideaId="cardId"  @click="editClicked($event)" /></a>
+    <a :href="deleteurl" :ideaId="cardId" v-if="this.myIdeas==='1'"><font-awesome-icon icon="trash" :ideaId="cardId"  @click="deleteClicked($event)" /></a>
     <a :href="url" :ideaId="cardId"  >
       <h2 class="card-title" :ideaId="cardId">{{this.title}}</h2>
       <p class="card-description" :ideaId="cardId">{{this.description}}</p>
@@ -61,12 +62,32 @@ export default {
      
     },
     editClicked:function(event) {
-      alert("i am clicked");
-         console.log("my edit id is"+ event.target.parentElement.parentElement.getAttribute('ideaId'));
-          let clickedCardId=event.target.parentElement.parentElement.getAttribute('ideaId');
+     // alert("i am clicked"+event.target.parentElement.getAttribute('ideaId'));
+       //  console.log("my edit id is"+ event.target.parentElement.getAttribute('ideaId'));
+          let clickedCardId=event.target.parentElement.getAttribute('ideaId');
             this.editurl = "/home/myIdeas/edit/" + clickedCardId;
 
-    } 
+    },
+     deleteClicked:function(event) {
+        let clickedCardId=event.target.parentElement.getAttribute('ideaId');
+         this.deleteurl = "/home/myIdeas/delete/" + clickedCardId;
+              // send data to submit
+        const axios = require("axios");
+        let currentObj = this;
+        axios
+          .post("/home/myIdeas/delete/"+clickedCardId, {
+            cardId: clickedCardId,
+           })
+          .then(function(response) {
+            location.reload();
+            currentObj.output = response.data;
+          })
+          .catch(function(error) {
+            currentObj.output = error;
+          });
+     
+
+    }  
   }
 };
 </script>
@@ -83,6 +104,7 @@ export default {
   margin: 5%;
   z-index:-1;
   position:inherit;
+  padding-bottom:5%;
 }
 .card span {
   margin-right: 5%;
@@ -91,6 +113,11 @@ export default {
   text-align: left;
   color: #000;
 }
+.card a:nth-child(2){
+  margin-left: 5%;
+    margin-top: -2.7%;
+}
+
  .card:hover{
   cursor: pointer;
   -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
@@ -98,8 +125,8 @@ export default {
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
 }
 .like {
-  margin-left: 45px;
-  margin-top: -60px;
+  margin-left: 50px;
+  margin-top: -70px;
 }
 .like:hover{
   cursor: pointer;

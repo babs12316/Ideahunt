@@ -15,7 +15,7 @@ Vue.use(BootstrapVue)
 
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faBars, faPlusCircle,faComment,faThumbsUp,faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faPlusCircle,faComment,faThumbsUp,faEdit,faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -24,7 +24,7 @@ library.add(faComment);
 library.add(faPlusCircle);
 library.add(faThumbsUp);
 library.add(faEdit);
-
+library.add(faTrash);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

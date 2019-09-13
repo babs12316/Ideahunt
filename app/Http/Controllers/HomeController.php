@@ -27,6 +27,7 @@ class HomeController extends Controller
 
     public function addIdea(Request $request)
     {  
+        
         $idea = new Idea;
         $idea->title = $request->title;
         $idea->description = $request->description;
