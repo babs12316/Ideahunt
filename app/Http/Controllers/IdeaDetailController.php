@@ -17,11 +17,8 @@ class IdeaDetailController extends Controller
     }
 
     public function insertLikes(Request $request){
-        $idea = new Idea;
-        $idea->id=$request->cardId;
-        $idea->likes= $request->likes;
-        Idea::where('id', $idea->id)
-         ->update(['likes' => $idea->likes]);
-          $idea->save();  
+      $idea = Idea::find($request->cardId);
+      $idea->likes = $request->likes;
+      $idea->save();
     }
 }

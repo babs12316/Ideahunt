@@ -11718,8 +11718,10 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     likeClicked: function likeClicked(event) {
+      //  let count=0;
       this.numberLikes++;
       var clickedCardId = event.target.parentElement.getAttribute('ideaId'); // send data to submit
+      // if(count==0){   
 
       var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
@@ -11731,7 +11733,8 @@ __webpack_require__.r(__webpack_exports__);
         currentObj.output = response.data;
       })["catch"](function (error) {
         currentObj.output = error;
-      });
+      }); //  } 
+      // count++; 
     },
     editClicked: function editClicked(event) {
       // alert("i am clicked"+event.target.parentElement.getAttribute('ideaId'));
@@ -44454,7 +44457,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".hide[data-v-6e4da0f2] {\n  display: none;\n}\n.show[data-v-6e4da0f2] {\n  display: inherit;\n}\n.card[data-v-6e4da0f2] {\n  padding: 2%;\n  margin: 5%;\n  z-index: -1;\n  position: inherit;\n  padding-bottom: 5%;\n}\n.card span[data-v-6e4da0f2] {\n  margin-right: 5%;\n}\n.card a[data-v-6e4da0f2] {\n  text-align: left;\n  color: #000;\n}\n.card a[data-v-6e4da0f2]:nth-child(2) {\n  margin-left: 5%;\n  margin-top: -2.7%;\n}\n.card[data-v-6e4da0f2]:hover {\n  cursor: pointer;\n  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);\n}\n.like[data-v-6e4da0f2] {\n  margin-left: 50px;\n  margin-top: -70px;\n}\n.like[data-v-6e4da0f2]:hover {\n  cursor: pointer;\n}\n.card a[data-v-6e4da0f2]:hover {\n  text-decoration: none;\n}\n@media (min-width: 992px) {\n.card-description[data-v-6e4da0f2] {\n    line-height: 3.7em !important;\n}\n}\n.card-description[data-v-6e4da0f2] {\n  overflow: hidden;\n  position: relative;\n  line-height: 1.2em;\n  max-height: 3.6em;\n  text-align: left;\n  margin-right: 0em;\n  padding-right: 1em;\n}\n.card-description[data-v-6e4da0f2]:before {\n  content: \"...\";\n  position: absolute;\n  right: 1em;\n  bottom: 0;\n  background: white;\n}\n.card-description[data-v-6e4da0f2]:after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  width: 1em;\n  height: 1em;\n  margin-top: 0.2em;\n  background: white;\n}\n@media (max-width: 992px) {\n.card[data-v-6e4da0f2] {\n    padding-bottom: 10%;\n}\n.like[data-v-6e4da0f2] {\n    margin-left: 7%;\n    margin-top: -14%;\n}\n}", ""]);
+exports.push([module.i, ".hide[data-v-6e4da0f2] {\n  display: none;\n}\n.show[data-v-6e4da0f2] {\n  display: inherit;\n}\n.idea[data-v-6e4da0f2] {\n  padding: 2%;\n  margin: 5%;\n  z-index: -1;\n  position: inherit;\n  padding-bottom: 5%;\n  background-clip: border-box;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-radius: 0.25rem;\n}\n.idea span[data-v-6e4da0f2] {\n  margin-right: 5%;\n}\n.idea a[data-v-6e4da0f2] {\n  text-align: left;\n  color: #000;\n}\n.idea a[data-v-6e4da0f2]:nth-child(2) {\n  margin-left: 5%;\n  margin-top: -2.7%;\n}\n.idea[data-v-6e4da0f2]:hover {\n  cursor: pointer;\n  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);\n}\n.like[data-v-6e4da0f2] {\n  margin-left: 7%;\n  margin-top: -9%;\n}\n.like[data-v-6e4da0f2]:hover {\n  cursor: pointer;\n}\n.myIdeasviewTitle[data-v-6e4da0f2] {\n  margin-top: 2%;\n}\n.myIdeasviewLike[data-v-6e4da0f2] {\n  margin-top: -10%;\n}\n.idea a[data-v-6e4da0f2]:hover {\n  text-decoration: none;\n}\n@media (min-width: 992px) {\n.idea-description[data-v-6e4da0f2] {\n    line-height: 3.7em !important;\n}\n}\n.idea-description[data-v-6e4da0f2] {\n  overflow: hidden;\n  position: relative;\n  line-height: 1.2em;\n  max-height: 3.6em;\n  text-align: left;\n  margin-right: 0em;\n  padding-right: 1em;\n}\n.idea-description[data-v-6e4da0f2]:before {\n  content: \"...\";\n  position: absolute;\n  right: 1em;\n  bottom: 0;\n  background: #fff;\n}\n.idea-description[data-v-6e4da0f2]:after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  width: 1em;\n  height: 1em;\n  margin-top: 0.2em;\n  background: #fff;\n}\n@media (max-width: 992px) {\n.idea[data-v-6e4da0f2] {\n    padding-bottom: 10%;\n}\n.like[data-v-6e4da0f2] {\n    margin-left: 7%;\n    margin-top: -14%;\n}\n}", ""]);
 
 // exports
 
@@ -76946,7 +76949,7 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "card",
+        staticClass: "idea",
         attrs: { id: _vm.cardId, ideaId: _vm.cardId },
         on: {
           click: function($event) {
@@ -76994,13 +76997,17 @@ var render = function() {
         _c("a", { attrs: { href: _vm.url, ideaId: _vm.cardId } }, [
           _c(
             "h2",
-            { staticClass: "card-title", attrs: { ideaId: _vm.cardId } },
+            {
+              staticClass: "idea-title",
+              class: this.myIdeas === "1" ? "myIdeasviewTitle" : "",
+              attrs: { ideaId: _vm.cardId }
+            },
             [_vm._v(_vm._s(this.title))]
           ),
           _vm._v(" "),
           _c(
             "p",
-            { staticClass: "card-description", attrs: { ideaId: _vm.cardId } },
+            { staticClass: "idea-description", attrs: { ideaId: _vm.cardId } },
             [_vm._v(_vm._s(this.description))]
           )
         ])
@@ -77009,7 +77016,10 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "like" },
+      {
+        staticClass: "like",
+        class: this.myIdeas === "1" ? "myIdeasviewLike" : ""
+      },
       [
         _c("font-awesome-icon", {
           attrs: { icon: "thumbs-up", ideaId: _vm.cardId },
@@ -92022,8 +92032,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\DBABHALE\myproject\test\Ideahunt-updated\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\DBABHALE\myproject\test\Ideahunt-updated\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\DBABHALE\Downloads\deepak\Ideahunt-updated\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\DBABHALE\Downloads\deepak\Ideahunt-updated\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

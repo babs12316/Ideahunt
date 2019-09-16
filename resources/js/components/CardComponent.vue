@@ -1,15 +1,15 @@
 <template>
 <div>
-  <div class="card" :id="cardId" :ideaId="cardId"  @click="cardClicked($event)">
+  <div class="idea" :id="cardId" :ideaId="cardId"  @click="cardClicked($event)">
    <a :href="editurl" :ideaId="cardId" v-if="this.myIdeas==='1'"><font-awesome-icon icon="edit" :ideaId="cardId"  @click="editClicked($event)" /></a>
     <a :href="deleteurl" :ideaId="cardId" v-if="this.myIdeas==='1'"><font-awesome-icon icon="trash" :ideaId="cardId"  @click="deleteClicked($event)" /></a>
     <a :href="url" :ideaId="cardId"  >
-      <h2 class="card-title" :ideaId="cardId">{{this.title}}</h2>
-      <p class="card-description" :ideaId="cardId">{{this.description}}</p>
+      <h2 class="idea-title" :ideaId="cardId" v-bind:class = "this.myIdeas==='1'?'myIdeasviewTitle':''">{{this.title}}</h2>
+      <p class="idea-description" :ideaId="cardId">{{this.description}}</p>
      <!-- <font-awesome-icon icon="comment" />&nbsp;&nbsp;10-->
     </a>
  </div>
-   <div class="like" >
+   <div class="like" v-bind:class = "this.myIdeas==='1'?'myIdeasviewLike':''" >
       <font-awesome-icon icon="thumbs-up" :ideaId="cardId"  @click="likeClicked($event)" />&nbsp;&nbsp;{{this.numberLikes}}
       </div>
   </div>    
@@ -43,9 +43,11 @@ export default {
         });
     },
     likeClicked:function(event) {
-        this.numberLikes++;
+     //  let count=0;
+       this.numberLikes++;
        let clickedCardId=event.target.parentElement.getAttribute('ideaId');
           // send data to submit
+      // if(count==0){   
         const axios = require("axios");
         let currentObj = this;
         axios
@@ -59,6 +61,8 @@ export default {
           .catch(function(error) {
             currentObj.output = error;
           });
+     //  } 
+      // count++; 
      
     },
     editClicked:function(event) {
@@ -99,44 +103,53 @@ export default {
 .show {
   display: inherit;
 }
-.card {
+.idea {
   padding: 2%;
   margin: 5%;
   z-index:-1;
   position:inherit;
   padding-bottom:5%;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
 }
-.card span {
+.idea span {
   margin-right: 5%;
 }
-.card a {
+.idea a {
   text-align: left;
   color: #000;
 }
-.card a:nth-child(2){
+.idea a:nth-child(2){
   margin-left: 5%;
     margin-top: -2.7%;
 }
 
- .card:hover{
+ .idea:hover{
   cursor: pointer;
   -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
 }
 .like {
-  margin-left: 50px;
-  margin-top: -70px;
+  margin-left: 7%;
+  margin-top: -9%;
 }
 .like:hover{
   cursor: pointer;
 }
 
+.myIdeasviewTitle{
+  margin-top:2%;
+}
+.myIdeasviewLike{
+  margin-top:-10%;
+}
 
-.card a:hover {
+.idea a:hover {
   text-decoration: none;
 }
-@mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1, $bgColor: white) {
+@mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1, $bgColor: #fff) {
   overflow: hidden;
   position: relative;
   line-height: $lineHeight;
@@ -162,22 +175,24 @@ export default {
   }
 }
 
+
+
 @media (min-width: 992px) {
-  .card-description {
+  .idea-description {
     line-height: 3.7em !important;
   }
 }
 
-.card-description {
+.idea-description {
   @include multiLineEllipsis(
     $lineHeight: 1.2em,
     $lineCount: 3,
-    $bgColor: white
+    $bgColor: #fff
   );
 }
 
 @media (max-width: 992px) {
-.card{
+.idea{
   padding-bottom:10%;
 }  
 .like{
