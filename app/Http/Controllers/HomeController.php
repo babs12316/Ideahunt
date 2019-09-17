@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Idea;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
@@ -34,15 +35,28 @@ class HomeController extends Controller
         $idea->userId = Auth::id();
         $idea->likes= 0;
         $idea->save();
+
+        DB::table('like_status')->insertOrIgnore(
+            ['id' => $idea->id, 'userId' => Auth::id(), 'likestatus' =>0]
+          );
+       
     }
 
     public function displayIdea()
     {  
         $idea = new Idea;
         $idea= $idea->fresh();
+     //   $likestatus = DB::table('like_status')->orderBy('id', 'desc')->get();
+       $likestatus = DB::table('like_status')->where('userId',  Auth::id())->orderBy('id', 'desc')->pluck('likeStatus');
+   // $likestatus = DB::table('like_status')->orderBy('id', 'desc')->pluck('likeStatus');
+       
     //    $ideas = Idea::orderBy('CREATED_AT', 'desc')->where('userId', Auth::id())->get();
         $ideas = Idea::orderBy('CREATED_AT', 'desc')->get();
-        return view('home')->with('ideas',$ideas);
+       // return view('home')->with('ideas',$ideas);
+     
+      
+       return view('home')->with('ideas',$ideas)->with("likestatus",$likestatus);
+      
     }
 
 }

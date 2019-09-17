@@ -15,9 +15,12 @@
                     @endif
                     <!-- Component to add ideas -->
                     <addidea-component></addidea-component>
-
+                    <p> test is here {{$likestatus}}</p>
+                  
+                   
+               
                     <!-- pass ides array from received from database to card component -->
-                    <cards-component ideas=" {{  json_encode($ideas)  }} "></cards-component>
+                    <cards-component ideas=" {{  json_encode($ideas)  }} "   likestatus="{{json_encode($likestatus) }}"></cards-component>
                 </div>
             </div>
         </div>

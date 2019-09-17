@@ -11692,13 +11692,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["title", "description", "cardId", "likes", "myIdeas"],
+  props: ["title", "description", "cardId", "likes", "myIdeas", "likeStatus"],
   data: function data() {
     return {
       url: "#",
       numberLikes: this.likes,
-      editurl: "#"
+      editurl: "#",
+      currentLikeStatus: this.likeStatus,
+      cardNumber: this.count
     };
   },
   methods: {
@@ -11720,7 +11723,8 @@ __webpack_require__.r(__webpack_exports__);
     likeClicked: function likeClicked(event) {
       //  let count=0;
       this.numberLikes++;
-      var clickedCardId = event.target.parentElement.getAttribute('ideaId'); // send data to submit
+      var clickedCardId = event.target.parentElement.getAttribute('ideaId');
+      this.currentLikeStatus = !this.currentLikeStatus; // send data to submit
       // if(count==0){   
 
       var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -11728,7 +11732,8 @@ __webpack_require__.r(__webpack_exports__);
       var currentObj = this;
       axios.post("/home/idea/" + clickedCardId, {
         cardId: clickedCardId,
-        likes: this.numberLikes
+        likes: this.numberLikes,
+        likestatus: this.currentLikeStatus
       }).then(function (response) {
         currentObj.output = response.data;
       })["catch"](function (error) {
@@ -11821,17 +11826,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["title", "ideas", "myideas"],
+  props: ["title", "ideas", "myideas", "likestatus"],
   data: function data() {
     return {
-      ideaArray: ""
+      ideaArray: "",
+      likeArray: ""
     };
   },
   mounted: function mounted() {
+    // alert("props array is"+this.likestatus);
     var vm = this;
     vm.$nextTick(function () {
       vm.ideaArray = JSON.parse(vm.ideas); // Parse ideas to read as an array in vue
+
+      vm.likeArray = JSON.parse(vm.likestatus);
     });
   }
 });
@@ -44457,7 +44470,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".hide[data-v-6e4da0f2] {\n  display: none;\n}\n.show[data-v-6e4da0f2] {\n  display: inherit;\n}\n.idea[data-v-6e4da0f2] {\n  padding: 2%;\n  margin: 5%;\n  z-index: -1;\n  position: inherit;\n  padding-bottom: 5%;\n  background-clip: border-box;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-radius: 0.25rem;\n}\n.idea span[data-v-6e4da0f2] {\n  margin-right: 5%;\n}\n.idea a[data-v-6e4da0f2] {\n  text-align: left;\n  color: #000;\n}\n.idea a[data-v-6e4da0f2]:nth-child(2) {\n  margin-left: 5%;\n  margin-top: -2.7%;\n}\n.idea[data-v-6e4da0f2]:hover {\n  cursor: pointer;\n  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);\n}\n.like[data-v-6e4da0f2] {\n  margin-left: 7%;\n  margin-top: -9%;\n}\n.like[data-v-6e4da0f2]:hover {\n  cursor: pointer;\n}\n.myIdeasviewTitle[data-v-6e4da0f2] {\n  margin-top: 2%;\n}\n.myIdeasviewLike[data-v-6e4da0f2] {\n  margin-top: -10%;\n}\n.idea a[data-v-6e4da0f2]:hover {\n  text-decoration: none;\n}\n@media (min-width: 992px) {\n.idea-description[data-v-6e4da0f2] {\n    line-height: 3.7em !important;\n}\n}\n.idea-description[data-v-6e4da0f2] {\n  overflow: hidden;\n  position: relative;\n  line-height: 1.2em;\n  max-height: 3.6em;\n  text-align: left;\n  margin-right: 0em;\n  padding-right: 1em;\n}\n.idea-description[data-v-6e4da0f2]:before {\n  content: \"...\";\n  position: absolute;\n  right: 1em;\n  bottom: 0;\n  background: #fff;\n}\n.idea-description[data-v-6e4da0f2]:after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  width: 1em;\n  height: 1em;\n  margin-top: 0.2em;\n  background: #fff;\n}\n@media (max-width: 992px) {\n.idea[data-v-6e4da0f2] {\n    padding-bottom: 10%;\n}\n.like[data-v-6e4da0f2] {\n    margin-left: 7%;\n    margin-top: -14%;\n}\n}", ""]);
+exports.push([module.i, ".hide[data-v-6e4da0f2] {\n  display: none;\n}\n.show[data-v-6e4da0f2] {\n  display: inherit;\n}\n.idea[data-v-6e4da0f2] {\n  padding: 2%;\n  margin: 5%;\n  z-index: -1;\n  position: inherit;\n  padding-bottom: 5%;\n  background-clip: border-box;\n  border: 1px solid rgba(0, 0, 0, 0.125);\n  border-radius: 0.25rem;\n}\n.idea span[data-v-6e4da0f2] {\n  margin-right: 5%;\n}\n.idea a[data-v-6e4da0f2] {\n  text-align: left;\n  color: #000;\n}\n.idea a[data-v-6e4da0f2]:nth-child(2) {\n  margin-left: 5%;\n  margin-top: -2.7%;\n}\n.idea[data-v-6e4da0f2]:hover {\n  cursor: pointer;\n  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);\n}\n.like[data-v-6e4da0f2] {\n  margin-left: 7%;\n  margin-top: -9%;\n}\n.like[data-v-6e4da0f2]:hover {\n  cursor: pointer;\n}\n.myIdeasviewTitle[data-v-6e4da0f2] {\n  margin-top: 2%;\n}\n.myIdeasviewLike[data-v-6e4da0f2] {\n  margin-top: -10%;\n}\nsvg.svg-inline--fa.fa-thumbs-up.fa-w-16[data-v-6e4da0f2] {\n  font-size: 20px;\n}\n.idea a[data-v-6e4da0f2]:hover {\n  text-decoration: none;\n}\n@media (min-width: 992px) {\n.idea-description[data-v-6e4da0f2] {\n    line-height: 3.7em !important;\n}\n}\n.idea-description[data-v-6e4da0f2] {\n  overflow: hidden;\n  position: relative;\n  line-height: 1.2em;\n  max-height: 3.6em;\n  text-align: left;\n  margin-right: 0em;\n  padding-right: 1em;\n}\n.idea-description[data-v-6e4da0f2]:before {\n  content: \"...\";\n  position: absolute;\n  right: 1em;\n  bottom: 0;\n  background: #fff;\n}\n.idea-description[data-v-6e4da0f2]:after {\n  content: \"\";\n  position: absolute;\n  right: 0;\n  width: 1em;\n  height: 1em;\n  margin-top: 0.2em;\n  background: #fff;\n}\n@media (max-width: 992px) {\n.idea[data-v-6e4da0f2] {\n    padding-bottom: 10%;\n}\n.like[data-v-6e4da0f2] {\n    margin-left: 7%;\n    margin-top: -14%;\n}\n}", ""]);
 
 // exports
 
@@ -77021,6 +77034,8 @@ var render = function() {
         class: this.myIdeas === "1" ? "myIdeasviewLike" : ""
       },
       [
+        _vm._v("\r\n     " + _vm._s(this.likeStatus[_vm.cardId]) + "  "),
+        _vm._v(" "),
         _c("font-awesome-icon", {
           attrs: { icon: "thumbs-up", ideaId: _vm.cardId },
           on: {
@@ -77139,7 +77154,8 @@ var render = function() {
               description: idea.description,
               cardId: idea.id,
               likes: idea.likes,
-              myIdeas: _vm.myideas
+              myIdeas: _vm.myideas,
+              likeStatus: _vm.likeArray
             }
           })
         ],

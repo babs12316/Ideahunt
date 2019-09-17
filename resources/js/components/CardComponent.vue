@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="idea" :id="cardId" :ideaId="cardId"  @click="cardClicked($event)">
+  <div class="idea" :id="cardId" :ideaId="cardId"   @click="cardClicked($event)">
    <a :href="editurl" :ideaId="cardId" v-if="this.myIdeas==='1'"><font-awesome-icon icon="edit" :ideaId="cardId"  @click="editClicked($event)" /></a>
     <a :href="deleteurl" :ideaId="cardId" v-if="this.myIdeas==='1'"><font-awesome-icon icon="trash" :ideaId="cardId"  @click="deleteClicked($event)" /></a>
     <a :href="url" :ideaId="cardId"  >
@@ -10,6 +10,7 @@
     </a>
  </div>
    <div class="like" v-bind:class = "this.myIdeas==='1'?'myIdeasviewLike':''" >
+     {{this.likeStatus[cardId]}}  <!-- Need to increment this array from 0 to its last element -->
       <font-awesome-icon icon="thumbs-up" :ideaId="cardId"  @click="likeClicked($event)" />&nbsp;&nbsp;{{this.numberLikes}}
       </div>
   </div>    
@@ -17,12 +18,14 @@
 
 <script>
 export default {
-  props: ["title", "description", "cardId","likes","myIdeas"],
+  props: ["title", "description", "cardId","likes","myIdeas","likeStatus"],
   data() {
     return {
       url: "#",
       numberLikes:this.likes,
-      editurl:"#"
+      editurl:"#",
+      currentLikeStatus:this.likeStatus,
+      cardNumber:this.count
     };
   },
   methods: {
@@ -46,6 +49,7 @@ export default {
      //  let count=0;
        this.numberLikes++;
        let clickedCardId=event.target.parentElement.getAttribute('ideaId');
+      this. currentLikeStatus=!this. currentLikeStatus;
           // send data to submit
       // if(count==0){   
         const axios = require("axios");
@@ -53,7 +57,8 @@ export default {
         axios
           .post("/home/idea/"+clickedCardId, {
             cardId: clickedCardId,
-            likes:this.numberLikes         
+            likes:this.numberLikes,
+            likestatus:this.currentLikeStatus      
           })
           .then(function(response) {
             currentObj.output = response.data;
@@ -144,6 +149,9 @@ export default {
 }
 .myIdeasviewLike{
   margin-top:-10%;
+}
+svg.svg-inline--fa.fa-thumbs-up.fa-w-16{
+  font-size:20px;
 }
 
 .idea a:hover {
