@@ -33,15 +33,20 @@ library.add(faTrash);
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// const files = require.context('./', true, /\.vue$/i)
+// const files = require.context('./', true, /\.vue$/i) 
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+//Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('addidea-component', require('./components/AddIdeaComponent.vue').default);
 Vue.component('card-component', require('./components/CardComponent.vue').default);
 Vue.component('cards-component', require('./components/CardsComponent.vue').default);
 Vue.component('card-detail-component', require('./components/CardDetailViewComponent.vue').default);
 Vue.component('editidea-component', require('./components/EditIdeaComponent.vue').default);
+Vue.component('likeicon-component', require('./components/LikeIconComponent.vue').default);
+Vue.component('ideatitle-component', require('./components/IdeaTitleComponent.vue').default);
+Vue.component('ideadescription-component', require('./components/IdeaDescriptionComponent.vue').default);
+Vue.component('editicon-component', require('./components/EditIconComponent.vue').default);
+Vue.component('deleteicon-component', require('./components/DeleteIconComponent.vue').default);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 /**
  * Next, we will create a fresh Vue application instance and attach it to

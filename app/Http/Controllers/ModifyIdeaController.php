@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 use App\Idea;
 class ModifyIdeaController extends Controller
@@ -21,8 +22,12 @@ class ModifyIdeaController extends Controller
     }
 
     public function delete(Request $request){
+     
         $idea = Idea::find($request->id);
+        DB::table('like_status')->where('id', '=', $request->id)->delete();
         $idea->delete();
+    
+    //    DB::table('like_status')->where('id', '=', $request->id)->delete();
 
     }
 }

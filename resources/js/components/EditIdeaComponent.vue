@@ -60,7 +60,7 @@ export default {
        window.history.go(-1);
     },
     save() {
-      alert("i am saved");
+      alert("Changes are saved!");
      // window.history.go(-1);
       // send data to submit
       const axios = require("axios");

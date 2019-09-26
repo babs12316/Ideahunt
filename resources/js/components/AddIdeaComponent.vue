@@ -105,8 +105,8 @@ export default {
     },
     description: {
       required,
-      minLength: minLength(4),
-      maxLength: maxLength(300)
+      minLength: minLength(100),
+      maxLength: maxLength(400)
     }
   },
   methods: {

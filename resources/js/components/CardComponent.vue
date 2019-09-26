@@ -1,34 +1,43 @@
 <template>
 <div>
   <div class="idea" :id="cardId" :ideaId="cardId"   @click="cardClicked($event)">
-   <a :href="editurl" :ideaId="cardId" v-if="this.myIdeas==='1'"><font-awesome-icon icon="edit" :ideaId="cardId"  @click="editClicked($event)" /></a>
-    <a :href="deleteurl" :ideaId="cardId" v-if="this.myIdeas==='1'"><font-awesome-icon icon="trash" :ideaId="cardId"  @click="deleteClicked($event)" /></a>
+   <!--<a :href="editurl" :ideaId="cardId" v-if="this.myIdeas==='1'"><font-awesome-icon icon="edit" :ideaId="cardId"  @click="editClicked($event)" /></a>
+    <a :href="deleteurl" :ideaId="cardId" v-if="this.myIdeas==='1'"><font-awesome-icon icon="trash" :ideaId="cardId"  @click="deleteClicked($event)" /></a>-->
+      <editicon-component :ismyidea="this.ismyidea" :ideaId="cardId"></editicon-component>
+      <deleteicon-component  :ismyidea="this.ismyidea" :ideaId="cardId"> </deleteicon-component>
     <a :href="url" :ideaId="cardId"  >
-      <h2 class="idea-title" :ideaId="cardId" v-bind:class = "this.myIdeas==='1'?'myIdeasviewTitle':''">{{this.title}}</h2>
-      <p class="idea-description" :ideaId="cardId">{{this.description}}</p>
+       
+          <ideatitle-component :title="this.title" :ideaId="cardId" :ismyidea="this.ismyidea"></ideatitle-component>
+          <ideadescription-component :ideaId="cardId" :description="this.description"></ideadescription-component>
+      <!--<h2 class="idea-title" :ideaId="cardId" v-bind:class = "this.myIdeas==='1'?'myIdeasviewTitle':''">{{this.title}}</h2>-->
+    <!--  <p class="idea-description" :ideaId="cardId">{{this.description}}</p>-->
      <!-- <font-awesome-icon icon="comment" />&nbsp;&nbsp;10-->
     </a>
  </div>
-   <div class="like" v-bind:class = "this.myIdeas==='1'?'myIdeasviewLike':''" >
-     {{this.likeStatus[cardId]}}  <!-- Need to increment this array from 0 to its last element -->
-      <font-awesome-icon icon="thumbs-up" :ideaId="cardId"  @click="likeClicked($event)" />&nbsp;&nbsp;{{this.numberLikes}}
-      </div>
+  
+      <!-- Need to increment this array from 0 to its last element   {{this.likeStatus[this.count]}} -->
+    <!--  <font-awesome-icon icon="thumbs-up" :ideaId="cardId"  @click="likeClicked($event)" />&nbsp;&nbsp;{{this.numberLikes}}-->
+    <likeicon-component :ideaId="cardId" :myideaid="this.myideaid" :ismyidea="this.ismyidea" :likestatus="this.likestatus" :likes="this.likes"></likeicon-component> 
+
   </div>    
-</template>
+</template>   
 
 <script>
 export default {
-  props: ["title", "description", "cardId","likes","myIdeas","likeStatus"],
+  props: ["title", "description", "cardId","likes","ismyidea","likestatus","myideaid"],
   data() {
     return {
       url: "#",
       numberLikes:this.likes,
       editurl:"#",
       currentLikeStatus:this.likeStatus,
-      cardNumber:this.count
+  //    cardNumber:this.count,
+    
     };
   },
+   
   methods: {
+   
     cardClicked: function(event) {
      // alert("i am clicked"+event.target.getAttribute('ideaId'));
       console.log(event.target.getAttribute('ideaId'));
@@ -45,7 +54,7 @@ export default {
           currentObj.output = error;
         });
     },
-    likeClicked:function(event) {
+  /*  likeClicked:function(event) {
      //  let count=0;
        this.numberLikes++;
        let clickedCardId=event.target.parentElement.getAttribute('ideaId');
@@ -69,10 +78,9 @@ export default {
      //  } 
       // count++; 
      
-    },
-    editClicked:function(event) {
-     // alert("i am clicked"+event.target.parentElement.getAttribute('ideaId'));
-       //  console.log("my edit id is"+ event.target.parentElement.getAttribute('ideaId'));
+    },*/
+   /* editClicked:function(event) {
+    
           let clickedCardId=event.target.parentElement.getAttribute('ideaId');
             this.editurl = "/home/myIdeas/edit/" + clickedCardId;
 
@@ -96,7 +104,7 @@ export default {
           });
      
 
-    }  
+    }  */
   }
 };
 </script>

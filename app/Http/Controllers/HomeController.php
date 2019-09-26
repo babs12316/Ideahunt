@@ -47,15 +47,19 @@ class HomeController extends Controller
         $idea = new Idea;
         $idea= $idea->fresh();
      //   $likestatus = DB::table('like_status')->orderBy('id', 'desc')->get();
-       $likestatus = DB::table('like_status')->where('userId',  Auth::id())->orderBy('id', 'desc')->pluck('likeStatus');
-   // $likestatus = DB::table('like_status')->orderBy('id', 'desc')->pluck('likeStatus');
+ //     $likestatus = DB::table('like_status')->where('userId',  Auth::id())->orderBy('id', 'desc')->pluck('likeStatus');
+    $likestatus = DB::table('like_status')->orderBy('id', 'desc')->pluck('likeStatus');
        
     //    $ideas = Idea::orderBy('CREATED_AT', 'desc')->where('userId', Auth::id())->get();
+
+  
+        $myideas = Idea::where('userId', Auth::id())->orderBy('CREATED_AT', 'desc')->get();
+
         $ideas = Idea::orderBy('CREATED_AT', 'desc')->get();
        // return view('home')->with('ideas',$ideas);
      
       
-       return view('home')->with('ideas',$ideas)->with("likestatus",$likestatus);
+       return view('home')->with('ideas',$ideas)->with("likestatus",$likestatus)->with("myideas",$myideas);
       
     }
 

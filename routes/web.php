@@ -27,3 +27,4 @@ Route::get('/home/myIdeas/edit/{id}', 'ModifyIdeaController@edit')->name('displa
 
 Route::post('/home/myIdeas', 'ModifyIdeaController@update')->name('display');
 Route::post('/home/myIdeas/delete/{id}', 'ModifyIdeaController@delete')->name('display');
+//Route::post('/home/myIdeas/delete/{id}', 'IdeaDetailController@deleteLikes')->name('display');

@@ -14,7 +14,7 @@
                     </div>
                     @endif
                   <!-- myideas=1 To understand if user is looking for its own ideas so that edit and delete button can be added in card view-->
-     <cards-component ideas=" {{  json_encode($myIdeas)  }} " myideas="1" ></cards-component>
+     <cards-component ideas=" {{  json_encode($myIdeas)  }} "  likestatus="{{json_encode($likestatus) }}">  ismyidea="1" ></cards-component>
                 </div>
             </div>
         </div>
