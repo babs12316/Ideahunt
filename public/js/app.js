@@ -11696,29 +11696,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["title", "description", "cardId", "likes", "ismyidea", "likestatus", "myideaid"],
+  props: ["title", "description", "ideaid", "likes", "ismyidea", "likestatus", "myideaid", "isthismyidea"],
   data: function data() {
     return {
       url: "#",
       numberLikes: this.likes,
       editurl: "#",
-      currentLikeStatus: this.likeStatus //    cardNumber:this.count,
-
+      currentLikeStatus: this.likeStatus
     };
   },
   methods: {
     cardClicked: function cardClicked(event) {
       // alert("i am clicked"+event.target.getAttribute('ideaId'));
-      console.log(event.target.getAttribute('ideaId'));
+      console.log(event.target.getAttribute("ideaid"));
 
       var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
       var currentObj = this;
-      var clickedCardId = event.target.getAttribute('ideaId');
+      var clickedCardId = event.target.getAttribute("ideaid");
       this.url = "/home/idea/" + clickedCardId;
       axios.get("/home/?id=" + clickedCardId).then(function (response) {
         currentObj.output = response.data;
@@ -11726,57 +11722,6 @@ __webpack_require__.r(__webpack_exports__);
         currentObj.output = error;
       });
     }
-    /*  likeClicked:function(event) {
-       //  let count=0;
-         this.numberLikes++;
-         let clickedCardId=event.target.parentElement.getAttribute('ideaId');
-        this. currentLikeStatus=!this. currentLikeStatus;
-            // send data to submit
-        // if(count==0){   
-          const axios = require("axios");
-          let currentObj = this;
-          axios
-            .post("/home/idea/"+clickedCardId, {
-              cardId: clickedCardId,
-              likes:this.numberLikes,
-              likestatus:this.currentLikeStatus      
-            })
-            .then(function(response) {
-              currentObj.output = response.data;
-            })
-            .catch(function(error) {
-              currentObj.output = error;
-            });
-       //  } 
-        // count++; 
-       
-      },*/
-
-    /* editClicked:function(event) {
-     
-           let clickedCardId=event.target.parentElement.getAttribute('ideaId');
-             this.editurl = "/home/myIdeas/edit/" + clickedCardId;
-       },
-      deleteClicked:function(event) {
-         let clickedCardId=event.target.parentElement.getAttribute('ideaId');
-          this.deleteurl = "/home/myIdeas/delete/" + clickedCardId;
-               // send data to submit
-         const axios = require("axios");
-         let currentObj = this;
-         axios
-           .post("/home/myIdeas/delete/"+clickedCardId, {
-             cardId: clickedCardId,
-            })
-           .then(function(response) {
-             location.reload();
-             currentObj.output = response.data;
-           })
-           .catch(function(error) {
-             currentObj.output = error;
-           });
-      
-       }  */
-
   }
 });
 
@@ -11848,9 +11793,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["title", "ideas", "ismyidea", "likestatus", "myideas"],
+  props: ["ideas", "likestatus", "myideas", "ismyidea"],
+  // ideas- array of all users ideas,likestatus- array of status of likes for logged in user, myideas-array of ideas for logged in user 
   data: function data() {
+    //ismyidea- to check if user is checking own ideas
     return {
       ideaArray: "",
       likeArray: "",
@@ -11865,7 +11814,7 @@ __webpack_require__.r(__webpack_exports__);
     // alert("props array is"+this.likestatus);
     var vm = this;
     vm.$nextTick(function () {
-      vm.ideaArray = JSON.parse(vm.ideas); // Parse ideas to read as an array in vue
+      vm.ideaArray = JSON.parse(vm.ideas); // Parse php array to read as an array in vue
 
       vm.likeArray = JSON.parse(vm.likestatus);
       vm.myideasArray = JSON.parse(vm.myideas);
@@ -11893,7 +11842,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["ismyidea", "ideaId"],
+  props: ["ismyidea", "ideaid"],
   data: function data() {
     return {
       deleteurl: "#"
@@ -11901,7 +11850,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     deleteClicked: function deleteClicked(event) {
-      var clickedCardId = event.target.parentElement.parentElement.getAttribute("ideaId"); //alert("card clicked is"+clickedCardId);
+      var clickedCardId = event.target.parentElement.parentElement.getAttribute("ideaid"); //alert("card clicked is"+clickedCardId);
 
       this.deleteurl = "/home/myIdeas/delete/" + clickedCardId; // send data to submit
 
@@ -11940,7 +11889,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["ismyidea", "ideaId"],
+  props: ["ismyidea", "ideaid"],
   data: function data() {
     return {
       editurl: "#"
@@ -11948,10 +11897,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     editClicked: function editClicked(event) {
-      //  alert("i am clicked" + event.target.parentElement.parentElement.getAttribute("ideaId"));
-      //  console.log("my edit id is"+ event.target.parentElement.getAttribute('ideaId'));
-      var clickedCardId = event.target.parentElement.parentElement.getAttribute("ideaId");
-      this.editurl = "/home/myIdeas/edit/" + clickedCardId;
+      alert("i am clicked" + event.target.parentElement.parentElement.getAttribute("ideaid")); //  console.log("my edit id is"+ event.target.parentElement.getAttribute('ideaId'));
+
+      var clickedCardId = event.target.parentElement.parentElement.getAttribute("ideaid");
+
+      if (clickedCardId) {
+        this.editurl = "/home/myIdeas/edit/" + clickedCardId;
+      }
     }
   }
 });
@@ -12067,7 +12019,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["description", "ideaId"]
+  props: ["description", "ideaid"]
 });
 
 /***/ }),
@@ -12088,7 +12040,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["title", "ismyidea", "ideaId"]
+  props: ["title", "ismyidea", "ideaid"]
 });
 
 /***/ }),
@@ -12119,9 +12071,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["ismyidea", "likes", "likestatus", "ideaId", "myideaid"],
+  props: ["ismyidea", "likes", "likestatus", "ideaid", "myideaid"],
   data: function data() {
     return {
       numberLikes: this.likes,
@@ -12129,26 +12080,26 @@ __webpack_require__.r(__webpack_exports__);
       isthismyidea: ""
     };
   },
-  mounted: function mounted() {
+  beforeMount: function beforeMount() {
+    //  alert("i am called");
     for (var i = 0; i < this.myideaid.length; i++) {
-      if (this.myideaid[i]["id"] === this.ideaId) {
-        this.isthismyidea = 1; //The value of isthismyidea should change here but its not changing why????
-
-        console.log("i am matched" + this.isthismyidea);
+      if (this.myideaid[i]["id"] === this.ideaid) {
+        this.isthismyidea = 1;
+        this.currentlikestatus = this.myideaid[i]["likeStatus"];
       }
     }
   },
   methods: {
     likeClicked: function likeClicked(event) {
-      alert("hello card id is" + event.target.parentElement.parentElement.getAttribute("ideaId")); //  alert("hello likestatus is " +this.currentlikestatus);
+      var clickedCardId = event.target.parentElement.parentElement.getAttribute("ideaid");
 
-      if (this.currentlikestatus === 0) {
-        this.currentlikestatus = 1;
-      } else if (this.currentlikestatus === 1) {
-        this.currentlikestatus = 0;
+      if (clickedCardId) {
+        if (this.currentlikestatus === 0) {
+          this.currentlikestatus = 1;
+        } else if (this.currentlikestatus === 1) {
+          this.currentlikestatus = 0;
+        }
       }
-
-      var clickedCardId = event.target.parentElement.parentElement.getAttribute("ideaId");
 
       var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
@@ -12164,25 +12115,6 @@ __webpack_require__.r(__webpack_exports__);
         currentObj.output = error;
       });
     }
-    /*    this.numberLikes++;
-    let clickedCardId = event.target.parentElement.getAttribute("ideaId");
-    this.currentLikeStatus = !this.currentLikeStatus;
-      const axios = require("axios");
-    let currentObj = this;
-    axios
-      .post("/home/idea/" + clickedCardId, {
-        cardId: clickedCardId,
-        likes: this.numberLikes,
-        likestatus: this.currentLikeStatus
-      })
-      .then(function(response) {
-        currentObj.output = response.data;
-      })
-      .catch(function(error) {
-        currentObj.output = error;
-      });
-    }*/
-
   }
 });
 
@@ -77372,7 +77304,7 @@ var render = function() {
         "div",
         {
           staticClass: "idea",
-          attrs: { id: _vm.cardId, ideaId: _vm.cardId },
+          attrs: { ideaid: _vm.ideaid },
           on: {
             click: function($event) {
               return _vm.cardClicked($event)
@@ -77381,27 +77313,27 @@ var render = function() {
         },
         [
           _c("editicon-component", {
-            attrs: { ismyidea: this.ismyidea, ideaId: _vm.cardId }
+            attrs: { ismyidea: this.isthismyidea, ideaid: _vm.ideaid }
           }),
           _vm._v(" "),
           _c("deleteicon-component", {
-            attrs: { ismyidea: this.ismyidea, ideaId: _vm.cardId }
+            attrs: { ismyidea: this.ismyidea, ideaid: _vm.ideaid }
           }),
           _vm._v(" "),
           _c(
             "a",
-            { attrs: { href: _vm.url, ideaId: _vm.cardId } },
+            { attrs: { href: _vm.url, ideaid: _vm.ideaid } },
             [
               _c("ideatitle-component", {
                 attrs: {
                   title: this.title,
-                  ideaId: _vm.cardId,
+                  ideaid: _vm.ideaid,
                   ismyidea: this.ismyidea
                 }
               }),
               _vm._v(" "),
               _c("ideadescription-component", {
-                attrs: { ideaId: _vm.cardId, description: this.description }
+                attrs: { ideaid: _vm.ideaid, description: this.description }
               })
             ],
             1
@@ -77412,7 +77344,7 @@ var render = function() {
       _vm._v(" "),
       _c("likeicon-component", {
         attrs: {
-          ideaId: _vm.cardId,
+          ideaid: _vm.ideaid,
           myideaid: this.myideaid,
           ismyidea: this.ismyidea,
           likestatus: this.likestatus,
@@ -77516,33 +77448,28 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    [
-      _c("h2", [
-        _vm._v(" My idea array is " + _vm._s(this.myideasArray) + " ")
-      ]),
-      _vm._v(" "),
-      _vm._l(this.ideaArray, function(idea) {
-        return _c(
-          "div",
-          { key: idea.id, attrs: { count: _vm.count++ } },
-          [
-            _c("card-component", {
-              attrs: {
-                title: idea.title,
-                description: idea.description,
-                myideaid: _vm.myideasArray,
-                ismyidea: _vm.ismyidea,
-                cardId: idea.id,
-                likes: idea.likes,
-                likestatus: _vm.likeArray[_vm.count]
-              }
-            })
-          ],
-          1
-        )
-      })
-    ],
-    2
+    _vm._l(this.ideaArray, function(idea) {
+      return _c(
+        "div",
+        { key: idea.id, attrs: { count: _vm.count++ } },
+        [
+          _c("card-component", {
+            attrs: {
+              title: idea.title,
+              description: idea.description,
+              myideaid: _vm.myideasArray,
+              ismyidea: _vm.ismyidea,
+              ideaid: idea.id,
+              likes: idea.likes,
+              likestatus: _vm.likeArray[_vm.count],
+              isthismyidea: _vm.ismyidea
+            }
+          })
+        ],
+        1
+      )
+    }),
+    0
   )
 }
 var staticRenderFns = []
@@ -77573,11 +77500,11 @@ var render = function() {
           "a",
           {
             staticClass: "deleteIcon",
-            attrs: { href: _vm.deleteurl, ideaId: this.ideaId }
+            attrs: { href: _vm.deleteurl, ideaid: this.ideaid }
           },
           [
             _c("font-awesome-icon", {
-              attrs: { icon: "trash", ideaId: _vm.cardId },
+              attrs: { icon: "trash" },
               on: {
                 click: function($event) {
                   return _vm.deleteClicked($event)
@@ -77618,11 +77545,11 @@ var render = function() {
           "a",
           {
             staticClass: "editIcon",
-            attrs: { href: _vm.editurl, ideaId: this.ideaId }
+            attrs: { href: _vm.editurl, ideaid: this.ideaid }
           },
           [
             _c("font-awesome-icon", {
-              attrs: { icon: "edit", ideaId: _vm.cardId },
+              attrs: { icon: "edit" },
               on: {
                 click: function($event) {
                   return _vm.editClicked($event)
@@ -77779,7 +77706,7 @@ var render = function() {
   return _c("div", [
     _c(
       "p",
-      { staticClass: "idea-description", attrs: { ideaId: this.ideaId } },
+      { staticClass: "idea-description", attrs: { ideaid: this.ideaid } },
       [_vm._v(_vm._s(this.description))]
     )
   ])
@@ -77811,7 +77738,7 @@ var render = function() {
       "h2",
       {
         class: this.ismyidea === "1" ? "myIdeasviewTitle" : "",
-        attrs: { ideaId: this.ideaId }
+        attrs: { ideaid: this.ideaid }
       },
       [_vm._v(_vm._s(this.title))]
     )
@@ -77843,19 +77770,15 @@ var render = function() {
     "div",
     {
       class: this.ismyidea === "1" ? "myIdeasviewLike" : "likeButton",
-      attrs: { ideaId: _vm.ideaId }
+      attrs: { ideaid: _vm.ideaid }
     },
     [
-      _c("h2", [_vm._v(" likestatus  " + _vm._s(this.likestatus))]),
-      _vm._v(" "),
-      _c("h2", [_vm._v(" isthismyidea " + _vm._s(this.isthismyidea) + " ")]),
-      _vm._v(" "),
       _c("font-awesome-icon", {
         class:
-          this.likestatus === 1 && this.isthismyidea === 1
+          this.currentlikestatus === 1 && this.isthismyidea === 1
             ? "alreadyLiked"
             : "notLiked",
-        attrs: { icon: "thumbs-up" },
+        attrs: { icon: "thumbs-up", ideaid: _vm.ideaid },
         on: {
           click: function($event) {
             return _vm.likeClicked($event)

@@ -1,12 +1,12 @@
 <template>
     <div>
-    <h2 :ideaId="this.ideaId" v-bind:class = "this.ismyidea==='1'?'myIdeasviewTitle':''" >{{this.title}}</h2>
+    <h2 :ideaid="this.ideaid" v-bind:class = "this.ismyidea==='1'?'myIdeasviewTitle':''" >{{this.title}}</h2>
     </div>
 </template>
 
 <script>
     export default {
-        props:["title","ismyidea","ideaId"]
+        props:["title","ismyidea","ideaid"]
     }
 </script>
 

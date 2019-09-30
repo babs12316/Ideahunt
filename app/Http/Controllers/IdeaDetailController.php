@@ -19,10 +19,10 @@ class IdeaDetailController extends Controller
   public function insertLikes(Request $request)
   {
 
-   /* DB::table('like_status')->insertOrIgnore(
+    DB::table('like_status')->insertOrIgnore(
       ['id' => $request->cardId, 'userId' => Auth::id(), 'likeStatus' =>$request->likestatus]
     );
-*/
+
     DB::table('like_status')
       ->where([
         ['id', '=', $request->cardId],

@@ -47,13 +47,18 @@ class HomeController extends Controller
         $idea = new Idea;
         $idea= $idea->fresh();
      //   $likestatus = DB::table('like_status')->orderBy('id', 'desc')->get();
- //     $likestatus = DB::table('like_status')->where('userId',  Auth::id())->orderBy('id', 'desc')->pluck('likeStatus');
-    $likestatus = DB::table('like_status')->orderBy('id', 'desc')->pluck('likeStatus');
+    //  $likestatus = DB::table('like_status')->where('userId',  Auth::id())->orderBy('id', 'desc')->pluck('likeStatus');
+      $likestatus = DB::table('like_status')->orderBy('id', 'desc')->pluck('likeStatus');
+  //$likestatus = DB::table('like_status')->where('userId',  Auth::id())->orderBy('id', 'desc')->select('id','likeStatus')->get();
        
     //    $ideas = Idea::orderBy('CREATED_AT', 'desc')->where('userId', Auth::id())->get();
 
   
-        $myideas = Idea::where('userId', Auth::id())->orderBy('CREATED_AT', 'desc')->get();
+      //  $myideas = Idea::where('userId', Auth::id())->orderBy('CREATED_AT', 'desc')->get();
+
+        $myideas =  DB::table('like_status')->where('userId', Auth::id())->get();
+
+
 
         $ideas = Idea::orderBy('CREATED_AT', 'desc')->get();
        // return view('home')->with('ideas',$ideas);

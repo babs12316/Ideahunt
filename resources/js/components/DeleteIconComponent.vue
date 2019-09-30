@@ -1,14 +1,14 @@
 <template>
   <div>
-    <a :href="deleteurl" class="deleteIcon" :ideaId="this.ideaId" v-if="this.ismyidea==='1'">
-      <font-awesome-icon icon="trash" :ideaId="cardId" @click="deleteClicked($event)" />
+    <a :href="deleteurl" class="deleteIcon" :ideaid="this.ideaid" v-if="this.ismyidea==='1'">
+      <font-awesome-icon icon="trash"  @click="deleteClicked($event)" />
     </a>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["ismyidea", "ideaId"],
+  props: ["ismyidea", "ideaid"],
   data() {
     return {
       deleteurl: "#"
@@ -18,7 +18,7 @@ export default {
   methods: {
     deleteClicked: function(event) {
       let clickedCardId = event.target.parentElement.parentElement.getAttribute(
-        "ideaId"
+        "ideaid"
       );
       //alert("card clicked is"+clickedCardId);
       this.deleteurl = "/home/myIdeas/delete/" + clickedCardId;

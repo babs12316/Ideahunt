@@ -1,14 +1,14 @@
 <template>
   <div>
-    <a :href="editurl"  class="editIcon" :ideaId="this.ideaId" v-if="this.ismyidea==='1'">
-      <font-awesome-icon icon="edit" :ideaId="cardId" @click="editClicked($event)" />
+    <a :href="editurl"  class="editIcon" :ideaid="this.ideaid" v-if="this.ismyidea==='1'">
+      <font-awesome-icon icon="edit"  @click="editClicked($event)" />
     </a>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["ismyidea", "ideaId"],
+  props: ["ismyidea", "ideaid"],
   data() {
     return {
       editurl: "#"
@@ -17,10 +17,12 @@ export default {
 
   methods: {
     editClicked: function(event) {    
-    //  alert("i am clicked" + event.target.parentElement.parentElement.getAttribute("ideaId"));
+      alert("i am clicked" + event.target.parentElement.parentElement.getAttribute("ideaid"));
       //  console.log("my edit id is"+ event.target.parentElement.getAttribute('ideaId'));
-      let clickedCardId = event.target.parentElement.parentElement.getAttribute("ideaId");
+      let clickedCardId = event.target.parentElement.parentElement.getAttribute("ideaid");
+      if(clickedCardId){
       this.editurl = "/home/myIdeas/edit/" + clickedCardId;
+      } 
     }
   }
 };
