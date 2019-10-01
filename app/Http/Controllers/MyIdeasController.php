@@ -16,7 +16,7 @@ class MyIdeasController extends Controller
     $myideas =  DB::table('like_status')->where('userId', Auth::id())->get();
   
   //  return view('myIdeas')->with('myideas',$ideas)->with("likestatus",$likestatus);
-  return view('home')->with('ideas',$ideas)->with("likestatus",$likestatus)->with("myideas",$myideas);
+  return view('myIdeas')->with('ideas',$ideas)->with("likestatus",$likestatus)->with("myideas",$myideas);
    }
 
   

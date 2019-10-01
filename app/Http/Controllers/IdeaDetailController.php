@@ -13,7 +13,11 @@ class IdeaDetailController extends Controller
   public function cardData(Request $request)
   {
     $idea = Idea::find($request->id);
-    return view('idea')->with('idea', $idea);
+    $likestatus = DB::table('like_status')->where([
+      ['id', '=', $request->id],
+      ['userId', '=', Auth::id()],
+    ])->pluck('likeStatus');
+    return view('idea')->with('idea', $idea)->with("likestatus",$likestatus);
   }
 
   public function insertLikes(Request $request)

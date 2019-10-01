@@ -5,7 +5,7 @@
       <deleteicon-component :ismyidea="this.ismyidea" :ideaid="ideaid"></deleteicon-component>
       <a :href="url" :ideaid="ideaid">
         <ideatitle-component :title="this.title" :ideaid="ideaid" :ismyidea="this.ismyidea"></ideatitle-component>
-        <ideadescription-component :ideaid="ideaid" :description="this.description"></ideadescription-component>
+        <ideadescription-component :ideaid="ideaid" :description="this.description" classname="idea-description"></ideadescription-component>
       </a>
     </div>
 

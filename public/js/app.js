@@ -11751,14 +11751,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["title", "description", "likes"],
+  props: ["id", "title", "description", "likes", "likestatus"],
+  data: function data() {
+    //ismyidea- to check if user is checking own ideas
+    return {
+      like: ""
+    };
+  },
   mounted: function mounted() {
+    var vm = this;
+    vm.$nextTick(function () {
+      vm.like = JSON.parse(vm.likestatus); // Parse php array to read as an array in vue
+    });
     this.$refs["cardDetailModal"].show();
   },
   methods: {
     close: function close() {
-      window.history.go(-1);
+      window.location.replace("/home/myideas");
     }
   }
 });
@@ -11849,22 +11870,28 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    close: function close() {
+      this.$refs["modal-delete"].hide();
+      window.history.go(-1);
+    },
     deleteClicked: function deleteClicked(event) {
-      var clickedCardId = event.target.parentElement.parentElement.getAttribute("ideaid"); //alert("card clicked is"+clickedCardId);
+      var clickedCardId = event.target.parentElement.parentElement.getAttribute("ideaid"); //  alert("card clicked is" + clickedCardId);
 
-      this.deleteurl = "/home/myIdeas/delete/" + clickedCardId; // send data to submit
+      this.deleteurl = "/home/myideas/delete/" + clickedCardId; // send data to submit
 
-      var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+      if (clickedCardId) {
+        var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
-      var currentObj = this;
-      axios.post("/home/myIdeas/delete/" + clickedCardId, {
-        cardId: clickedCardId
-      }).then(function (response) {
-        location.reload();
-        currentObj.output = response.data;
-      })["catch"](function (error) {
-        currentObj.output = error;
-      });
+        var currentObj = this;
+        axios.post("/home/myIdeas/delete/" + clickedCardId, {
+          cardId: clickedCardId
+        }).then(function (response) {
+          location.reload();
+          currentObj.output = response.data;
+        })["catch"](function (error) {
+          currentObj.output = error;
+        });
+      }
     }
   }
 });
@@ -11897,12 +11924,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     editClicked: function editClicked(event) {
-      alert("i am clicked" + event.target.parentElement.parentElement.getAttribute("ideaid")); //  console.log("my edit id is"+ event.target.parentElement.getAttribute('ideaId'));
-
+      // alert("i am clicked" + event.target.parentElement.parentElement.getAttribute("ideaid"));
+      //  console.log("my edit id is"+ event.target.parentElement.getAttribute('ideaId'));
       var clickedCardId = event.target.parentElement.parentElement.getAttribute("ideaid");
 
       if (clickedCardId) {
-        this.editurl = "/home/myIdeas/edit/" + clickedCardId;
+        this.editurl = "/home/myideas/edit/" + clickedCardId;
       }
     }
   }
@@ -11919,7 +11946,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -11980,17 +12006,16 @@ __webpack_require__.r(__webpack_exports__);
       window.history.go(-1);
     },
     save: function save() {
-      alert("Changes are saved!"); // window.history.go(-1);
       // send data to submit
-
       var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
       var currentObj = this;
-      axios.post("/home/myIdeas", {
+      axios.post("/home/myideas", {
         title: $("#title").val(),
         description: $("#description").val(),
         id: $("div.submit").attr("id")
       }).then(function (response) {
+        alert("Changes are saved!");
         window.history.go(-1);
         currentObj.output = response.data;
       })["catch"](function (error) {
@@ -12019,7 +12044,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["description", "ideaid"]
+  props: ["description", "ideaid", "classname"]
 });
 
 /***/ }),
@@ -44620,10 +44645,10 @@ exports.push([module.i, ".hide[data-v-6e4da0f2] {\n  display: none;\n}\n.show[da
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardDetailViewComponent.vue?vue&type=style&index=0&lang=scss&":
-/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CardDetailViewComponent.vue?vue&type=style&index=0&lang=scss& ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardDetailViewComponent.vue?vue&type=style&index=0&id=3a8a0dbc&scoped=true&lang=scss&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CardDetailViewComponent.vue?vue&type=style&index=0&id=3a8a0dbc&scoped=true&lang=scss& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -44632,7 +44657,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#cardDetailModal button.close {\n  display: none !important;\n}\n#cardDetailModal p {\n  text-align: left;\n}", ""]);
+exports.push([module.i, "#cardDetailModal button.close[data-v-3a8a0dbc] {\n  display: none !important;\n}\n#cardDetailModal p[data-v-3a8a0dbc] {\n  text-align: left;\n}\n.alreadyLiked[data-v-3a8a0dbc] {\n  color: green;\n  margin-top: 3% !important;\n  margin-left: 1% !important;\n}\n.notLiked[data-v-3a8a0dbc] {\n  margin-top: 3% !important;\n  margin-left: 1% !important;\n}", ""]);
 
 // exports
 
@@ -76287,15 +76312,15 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardDetailViewComponent.vue?vue&type=style&index=0&lang=scss&":
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CardDetailViewComponent.vue?vue&type=style&index=0&lang=scss& ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardDetailViewComponent.vue?vue&type=style&index=0&id=3a8a0dbc&scoped=true&lang=scss&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/sass-loader/dist/cjs.js??ref--7-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CardDetailViewComponent.vue?vue&type=style&index=0&id=3a8a0dbc&scoped=true&lang=scss& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../node_modules/vue-loader/lib??vue-loader-options!./CardDetailViewComponent.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardDetailViewComponent.vue?vue&type=style&index=0&lang=scss&");
+var content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../node_modules/vue-loader/lib??vue-loader-options!./CardDetailViewComponent.vue?vue&type=style&index=0&id=3a8a0dbc&scoped=true&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardDetailViewComponent.vue?vue&type=style&index=0&id=3a8a0dbc&scoped=true&lang=scss&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -77333,7 +77358,11 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("ideadescription-component", {
-                attrs: { ideaid: _vm.ideaid, description: this.description }
+                attrs: {
+                  ideaid: _vm.ideaid,
+                  description: this.description,
+                  classname: "idea-description"
+                }
               })
             ],
             1
@@ -77362,10 +77391,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardDetailViewComponent.vue?vue&type=template&id=3a8a0dbc&":
-/*!**************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CardDetailViewComponent.vue?vue&type=template&id=3a8a0dbc& ***!
-  \**************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardDetailViewComponent.vue?vue&type=template&id=3a8a0dbc&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CardDetailViewComponent.vue?vue&type=template&id=3a8a0dbc&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -77389,7 +77418,9 @@ var render = function() {
             {
               key: "modal-title",
               fn: function() {
-                return [_c("h2", [_vm._v(" " + _vm._s(_vm.title) + " ")])]
+                return [
+                  _c("ideatitle-component", { attrs: { title: _vm.title } })
+                ]
               },
               proxy: true
             }
@@ -77397,12 +77428,29 @@ var render = function() {
         },
         [
           _vm._v(" "),
-          _c("div", { staticClass: "d-block text-center" }, [
-            _c("p", [_vm._v(_vm._s(_vm.description))])
-          ]),
+          _c(
+            "div",
+            { staticClass: "d-block text-center" },
+            [
+              _c("ideadescription-component", {
+                staticClass: "idea-description-detail",
+                attrs: { ideaid: _vm.ideaid, description: this.description }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("font-awesome-icon", { attrs: { icon: "thumbs-up" } }),
-          _vm._v("  " + _vm._s(this.likes) + "\n    "),
+          _c("likeicon-component", {
+            class: this.like[0] === 1 ? "alreadyLiked" : "notLiked",
+            attrs: {
+              ideaid: this.id,
+              myideaid: this.id,
+              ismyidea: "1",
+              likestatus: this.like[0],
+              likes: this.likes
+            }
+          }),
+          _vm._v(" "),
           _c(
             "b-button",
             {
@@ -77596,11 +77644,7 @@ var render = function() {
             {
               key: "modal-title",
               fn: function() {
-                return [
-                  _vm._v("\n      Using\n      "),
-                  _c("code", [_vm._v("$bvModal")]),
-                  _vm._v(" Methods\n    ")
-                ]
+                return [_c("code", [_vm._v(" Edit your Idea")])]
               },
               proxy: true
             }
@@ -77704,11 +77748,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "p",
-      { staticClass: "idea-description", attrs: { ideaid: this.ideaid } },
-      [_vm._v(_vm._s(this.description))]
-    )
+    _c("p", { class: this.classname, attrs: { ideaid: this.ideaid } }, [
+      _vm._v(_vm._s(this.description))
+    ])
   ])
 }
 var staticRenderFns = []
@@ -92173,9 +92215,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CardDetailViewComponent_vue_vue_type_template_id_3a8a0dbc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardDetailViewComponent.vue?vue&type=template&id=3a8a0dbc& */ "./resources/js/components/CardDetailViewComponent.vue?vue&type=template&id=3a8a0dbc&");
+/* harmony import */ var _CardDetailViewComponent_vue_vue_type_template_id_3a8a0dbc_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardDetailViewComponent.vue?vue&type=template&id=3a8a0dbc&scoped=true& */ "./resources/js/components/CardDetailViewComponent.vue?vue&type=template&id=3a8a0dbc&scoped=true&");
 /* harmony import */ var _CardDetailViewComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardDetailViewComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/CardDetailViewComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _CardDetailViewComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CardDetailViewComponent.vue?vue&type=style&index=0&lang=scss& */ "./resources/js/components/CardDetailViewComponent.vue?vue&type=style&index=0&lang=scss&");
+/* empty/unused harmony star reexport *//* harmony import */ var _CardDetailViewComponent_vue_vue_type_style_index_0_id_3a8a0dbc_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CardDetailViewComponent.vue?vue&type=style&index=0&id=3a8a0dbc&scoped=true&lang=scss& */ "./resources/js/components/CardDetailViewComponent.vue?vue&type=style&index=0&id=3a8a0dbc&scoped=true&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -92187,11 +92229,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _CardDetailViewComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _CardDetailViewComponent_vue_vue_type_template_id_3a8a0dbc___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _CardDetailViewComponent_vue_vue_type_template_id_3a8a0dbc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _CardDetailViewComponent_vue_vue_type_template_id_3a8a0dbc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CardDetailViewComponent_vue_vue_type_template_id_3a8a0dbc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  null,
+  "3a8a0dbc",
   null
   
 )
@@ -92217,35 +92259,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/CardDetailViewComponent.vue?vue&type=style&index=0&lang=scss&":
-/*!***********************************************************************************************!*\
-  !*** ./resources/js/components/CardDetailViewComponent.vue?vue&type=style&index=0&lang=scss& ***!
-  \***********************************************************************************************/
+/***/ "./resources/js/components/CardDetailViewComponent.vue?vue&type=style&index=0&id=3a8a0dbc&scoped=true&lang=scss&":
+/*!***********************************************************************************************************************!*\
+  !*** ./resources/js/components/CardDetailViewComponent.vue?vue&type=style&index=0&id=3a8a0dbc&scoped=true&lang=scss& ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CardDetailViewComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../node_modules/vue-loader/lib??vue-loader-options!./CardDetailViewComponent.vue?vue&type=style&index=0&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardDetailViewComponent.vue?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CardDetailViewComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CardDetailViewComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CardDetailViewComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CardDetailViewComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CardDetailViewComponent_vue_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CardDetailViewComponent_vue_vue_type_style_index_0_id_3a8a0dbc_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/sass-loader/dist/cjs.js??ref--7-3!../../../node_modules/vue-loader/lib??vue-loader-options!./CardDetailViewComponent.vue?vue&type=style&index=0&id=3a8a0dbc&scoped=true&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardDetailViewComponent.vue?vue&type=style&index=0&id=3a8a0dbc&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CardDetailViewComponent_vue_vue_type_style_index_0_id_3a8a0dbc_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CardDetailViewComponent_vue_vue_type_style_index_0_id_3a8a0dbc_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CardDetailViewComponent_vue_vue_type_style_index_0_id_3a8a0dbc_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CardDetailViewComponent_vue_vue_type_style_index_0_id_3a8a0dbc_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_sass_loader_dist_cjs_js_ref_7_3_node_modules_vue_loader_lib_index_js_vue_loader_options_CardDetailViewComponent_vue_vue_type_style_index_0_id_3a8a0dbc_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "./resources/js/components/CardDetailViewComponent.vue?vue&type=template&id=3a8a0dbc&":
-/*!********************************************************************************************!*\
-  !*** ./resources/js/components/CardDetailViewComponent.vue?vue&type=template&id=3a8a0dbc& ***!
-  \********************************************************************************************/
+/***/ "./resources/js/components/CardDetailViewComponent.vue?vue&type=template&id=3a8a0dbc&scoped=true&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/components/CardDetailViewComponent.vue?vue&type=template&id=3a8a0dbc&scoped=true& ***!
+  \********************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardDetailViewComponent_vue_vue_type_template_id_3a8a0dbc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./CardDetailViewComponent.vue?vue&type=template&id=3a8a0dbc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardDetailViewComponent.vue?vue&type=template&id=3a8a0dbc&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardDetailViewComponent_vue_vue_type_template_id_3a8a0dbc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardDetailViewComponent_vue_vue_type_template_id_3a8a0dbc_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./CardDetailViewComponent.vue?vue&type=template&id=3a8a0dbc&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CardDetailViewComponent.vue?vue&type=template&id=3a8a0dbc&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardDetailViewComponent_vue_vue_type_template_id_3a8a0dbc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardDetailViewComponent_vue_vue_type_template_id_3a8a0dbc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardDetailViewComponent_vue_vue_type_template_id_3a8a0dbc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -1,12 +1,12 @@
 <template>
     <div>
-      <p :ideaid="this.ideaid" class="idea-description">{{this.description}}</p>
+      <p :ideaid="this.ideaid" :class="this.classname">{{this.description}}</p>
     </div>
 </template>
 
 <script>
     export default {
-        props:["description","ideaid"]
+        props:["description","ideaid","classname"]
     }
 </script>
 

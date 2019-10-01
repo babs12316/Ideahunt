@@ -84,9 +84,9 @@
 
         <div class="content">
            <div class="title m-b-md">
-                Laravel 
+               Ideahunt
                 <div id="app">
-                    <example-component></example-component>
+                   <example-component></example-component>
                  
                 </div>
 

@@ -17,11 +17,11 @@ export default {
 
   methods: {
     editClicked: function(event) {    
-      alert("i am clicked" + event.target.parentElement.parentElement.getAttribute("ideaid"));
+     // alert("i am clicked" + event.target.parentElement.parentElement.getAttribute("ideaid"));
       //  console.log("my edit id is"+ event.target.parentElement.getAttribute('ideaId'));
       let clickedCardId = event.target.parentElement.parentElement.getAttribute("ideaid");
       if(clickedCardId){
-      this.editurl = "/home/myIdeas/edit/" + clickedCardId;
+      this.editurl = "/home/myideas/edit/" + clickedCardId;
       } 
     }
   }

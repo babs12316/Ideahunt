@@ -22,9 +22,9 @@ Route::get('/home', 'HomeController@displayIdea')->name('display');
 Route::get('/home/idea/{id}', 'IdeaDetailController@cardData')->name('display');
 Route::post('/home/idea/{id}', 'IdeaDetailController@insertLikes')->name('display');
 
-Route::get('/home/myIdeas', 'MyIdeasController@show')->name('display');
-Route::get('/home/myIdeas/edit/{id}', 'ModifyIdeaController@edit')->name('display');
+Route::get('/home/myideas', 'MyIdeasController@show')->name('display');
+Route::get('/home/myideas/edit/{id}', 'ModifyIdeaController@edit')->name('display');
 
-Route::post('/home/myIdeas', 'ModifyIdeaController@update')->name('display');
-Route::post('/home/myIdeas/delete/{id}', 'ModifyIdeaController@delete')->name('display');
+Route::post('/home/myideas', 'ModifyIdeaController@update')->name('display');
+Route::post('/home/myideas/delete/{id}', 'ModifyIdeaController@delete')->name('display');
 //Route::post('/home/myIdeas/delete/{id}', 'IdeaDetailController@deleteLikes')->name('display');

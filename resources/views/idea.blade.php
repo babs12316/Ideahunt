@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div>
-        <card-detail-component title="{{$idea->title}}" description="{{$idea->description}}" likes="{{$idea->likes}}" ></card-detail-component>
+        <card-detail-component id="{{$idea->id}}" title="{{$idea->title}}" description="{{$idea->description}}" likes="{{$idea->likes}}" likestatus="{{json_encode($likestatus) }}"   ></card-detail-component>
     </div>
 </div>
 @endsection

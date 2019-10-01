@@ -2,8 +2,7 @@
   <div>
     <b-modal id="bv-modal-example" ref="modal" hide-footer>
       <template v-slot:modal-title>
-        Using
-        <code>$bvModal</code> Methods
+        <code> Edit your Idea</code> 
       </template>
       <div class="d-block text-center">
         <div v-for="idea in this.ideaArray" :key="idea.id" :id="idea.id" class="submit">
@@ -60,18 +59,17 @@ export default {
        window.history.go(-1);
     },
     save() {
-      alert("Changes are saved!");
-     // window.history.go(-1);
       // send data to submit
       const axios = require("axios");
       let currentObj = this;
       axios
-        .post("/home/myIdeas", {
+        .post("/home/myideas", {
           title: $("#title").val(),
           description: $("#description").val(),
           id: $("div.submit").attr("id")
         })
         .then(function(response) {
+           alert("Changes are saved!");
           window.history.go(-1);
           currentObj.output = response.data;
         })
