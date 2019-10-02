@@ -17,10 +17,7 @@
                     <!-- Component to add ideas -->
                     <addidea-component></addidea-component>
                  
-                  
-                   
-               
-                    <!-- pass ides array from received from database to cards component -->
+                  <!-- pass ides array from received from database to cards component -->
                     <cards-component ideas=" {{  json_encode($ideas)  }} "  myideas="{{json_encode($myideas)}}"  likestatus="{{json_encode($likestatus) }}" ismyidea="0"></cards-component>
                 </div>
             </div>

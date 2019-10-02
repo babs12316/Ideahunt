@@ -17,14 +17,14 @@ class IdeaDetailController extends Controller
       ['id', '=', $request->id],
       ['userId', '=', Auth::id()],
     ])->pluck('likeStatus');
-    return view('idea')->with('idea', $idea)->with("likestatus",$likestatus);
+    return view('idea')->with('idea', $idea)->with("likestatus", $likestatus);
   }
 
   public function insertLikes(Request $request)
   {
 
     DB::table('like_status')->insertOrIgnore(
-      ['id' => $request->cardId, 'userId' => Auth::id(), 'likeStatus' =>$request->likestatus]
+      ['id' => $request->cardId, 'userId' => Auth::id(), 'likeStatus' => $request->likestatus]
     );
 
     DB::table('like_status')
@@ -33,30 +33,15 @@ class IdeaDetailController extends Controller
         ['userId', '=', Auth::id()],
       ])->update(['likeStatus' => $request->likestatus]);
 
-     $countLikes= DB::table('like_status')->where
-     ([
-      ['id', '=', $request->cardId],
-      ['likeStatus', '=', 1],
-  ])->count('likeStatus');
+    $countLikes = DB::table('like_status')->where([
+        ['id', '=', $request->cardId],
+        ['likeStatus', '=', 1],
+      ])->count('likeStatus');
 
-  $idea = Idea::find($request->cardId);
-   $idea->likes =  $countLikes;
+    $idea = Idea::find($request->cardId);
+    $idea->likes =  $countLikes;
     $idea->save();
 
     print_r($countLikes);
- 
-   
-   
-   
   }
-
-
-  /*public function deleteLikes(Request $request){
-
-    DB::table('like_status')->where('id', '=', $request->id)->delete();
-    return redirect()->action('ModifyIdeaController@delete');
-  }*/
-
 }
-
-

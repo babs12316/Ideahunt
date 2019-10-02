@@ -5,18 +5,15 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Welcome  {{ Auth::user()->name }}!</div>
-
-                <div class="card-body">
+                <div class="card-header">Welcome {{ Auth::user()->name }}!</div>
+                   <div class="card-body">
                     @if (session('status'))
                     <div class="alert alert-success" role="alert">
                         {{ session('status') }}
                     </div>
                     @endif
-                  
-                  <!-- ismyidea=1 To understand if user is looking for its own ideas so that edit and delete button can be added in card view-->
-    <!-- <cards-component ideas=" {{  json_encode($ideas)  }} "  myideas=" {{  json_encode($myideas)  }} " likestatus="{{json_encode($likestatus) }}"  ismyidea="1" ></cards-component>-->
-     <cards-component  ideas=" {{  json_encode($ideas)  }} "  myideas="{{json_encode($myideas)}}"  likestatus="{{json_encode($likestatus) }}"  ismyidea="1"></cards-component>
+                    <!-- ismyidea=1 To understand if user is looking for its own ideas so that edit and delete button can be added in card view-->
+                     <cards-component ideas=" {{  json_encode($ideas)  }} " myideas="{{json_encode($myideas)}}" likestatus="{{json_encode($likestatus) }}" ismyidea="1"></cards-component>
                 </div>
             </div>
         </div>
