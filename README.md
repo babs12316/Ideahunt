@@ -1,5 +1,6 @@
-Laravel,Vue.js & Bootstrap-vue app
+
 This is a modern web app build with Laravel,Vue.js & Bootstrap-vue. 
+
 App is called Ideahunt, it allows user to add, edit, delete and like Ideas. 
 
 
