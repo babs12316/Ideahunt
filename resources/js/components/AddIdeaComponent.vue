@@ -3,16 +3,11 @@
     <div class="addIcon">
       <font-awesome-icon
         icon="plus-circle"
-        title="add a post"
+        title="Add your own idea"
         class="icon alt"
         v-b-modal.modal-prevent-closing
       />
     </div>
-  <!--  <div class="mt-3">
-      Submitted Title is:{{this.submittedTitle}}
-      Submitted Description is:{{this.submittedDescription}}
-    </div>-->
-
     <b-modal
       id="modal-prevent-closing"
       ref="modal"
@@ -63,31 +58,24 @@
     </b-modal>
   </div>
 </template>
-
-
- <!-- <button class="button" type="submit" :disabled="submitStatus === 'PENDING'">Submit!</button>-->
- <!-- <p class="typo__p" v-if="submitStatus === 'OK'">Thanks for your submission!</p>-->
-  <!--<p class="typo__p" v-if="submitStatus === 'ERROR'">Please fill the form correctly.</p>-->
- <!-- <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>-->
 <style lang="scss" scoped>
 .addIcon {
-  position: inherit; 
-  float:right;
+  position: inherit;
+  float: right;
   margin-top: -66px;
   font-size: 30px;
   color: green;
 }
-.error{
-  color:red;
+.addIcon:hover {
+  cursor: pointer;
+}
+.error {
+  color: red;
 }
 </style>
-
-
 <script>
 import { required, minLength, maxLength } from "vuelidate/lib/validators";
-
 export default {
-  //props: ["user_id"],
   data() {
     return {
       title: "",
@@ -117,13 +105,10 @@ export default {
     submit(bvModalEvt) {
       // Prevent modal from closing
       bvModalEvt.preventDefault();
-
-     // console.log("submit!");
       this.$v.$touch();
       if (this.$v.$invalid) {
         this.submitStatus = "ERROR";
       } else {
-        // do your submit logic here
         this.submitStatus = "PENDING";
         setTimeout(() => {
           this.submitStatus = "OK";
@@ -137,10 +122,10 @@ export default {
         axios
           .post("/home", {
             title: this.title,
-            description: this.description          
+            description: this.description
           })
           .then(function(response) {
-           location.reload();
+            window.location.replace("/home");
             currentObj.output = response.data;
           })
           .catch(function(error) {

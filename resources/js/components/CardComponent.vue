@@ -1,14 +1,17 @@
 <template>
   <div>
-    <div class="idea" :ideaid="ideaid" @click="cardClicked($event)">
+    <div class="idea" :ideaid="ideaid" @click="cardClicked(ideaid)" title="Click on me to see detail view!">
       <editicon-component :ismyidea="this.isthismyidea" :ideaid="ideaid"></editicon-component>
       <deleteicon-component :ismyidea="this.ismyidea" :ideaid="ideaid"></deleteicon-component>
       <a :href="url" :ideaid="ideaid">
         <ideatitle-component :title="this.title" :ideaid="ideaid" :ismyidea="this.ismyidea"></ideatitle-component>
-        <ideadescription-component :ideaid="ideaid" :description="this.description" classname="idea-description"></ideadescription-component>
+        <ideadescription-component
+          :ideaid="ideaid"
+          :description="this.description"
+          class="idea-description"
+        ></ideadescription-component>
       </a>
     </div>
-
     <likeicon-component
       :ideaid="ideaid"
       :myideaid="this.myideaid"
@@ -40,12 +43,9 @@ export default {
     };
   },
   methods: {
-    cardClicked: function(event) {
-      // alert("i am clicked"+event.target.getAttribute('ideaId'));
-      console.log(event.target.getAttribute("ideaid"));
+    cardClicked: function(clickedCardId) {
       const axios = require("axios");
       let currentObj = this;
-      let clickedCardId = event.target.getAttribute("ideaid");
       this.url = "/home/idea/" + clickedCardId;
       axios
         .get("/home/?id=" + clickedCardId)

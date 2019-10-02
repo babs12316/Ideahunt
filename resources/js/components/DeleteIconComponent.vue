@@ -1,8 +1,26 @@
 <template>
   <div>
-    <a :href="deleteurl" class="deleteIcon" :ideaid="this.ideaid" v-if="this.ismyidea==='1'">
-      <font-awesome-icon icon="trash" @click="deleteClicked($event)" />
+    <a
+      :href="deleteurl"
+      class="deleteIcon"
+      v-b-modal="'my-modal-delete'+this.ideaid"
+      :ideaid="this.ideaid"
+      v-if="this.ismyidea==='1'"
+    >
+      <font-awesome-icon icon="trash" />
     </a>
+    <b-modal
+      :id="'my-modal-delete'+this.ideaid"
+      ref="modal-delete"
+      :ideaid="this.ideaid"
+      hide-footer
+    >
+      <template v-slot:modal-title>
+        <code>Are you sure, you want to delete this idea?</code>
+      </template>
+      <b-button class="mt-1" @click="deleteClicked(ideaid)">Yes, I am sure!</b-button>
+      <b-button class="mt-1" @click="close()">Cancel</b-button>
+    </b-modal>
   </div>
 </template>
 
@@ -20,29 +38,25 @@ export default {
       this.$refs["modal-delete"].hide();
       window.history.go(-1);
     },
-    deleteClicked: function(event) {
-      let clickedCardId = event.target.parentElement.parentElement.getAttribute(
-        "ideaid"
-      );
-    //  alert("card clicked is" + clickedCardId);
+    deleteClicked: function(clickedCardId) {
       this.deleteurl = "/home/myideas/delete/" + clickedCardId;
       // send data to submit
-      if(clickedCardId){
+
       const axios = require("axios");
       let currentObj = this;
       axios
-        .post("/home/myIdeas/delete/" + clickedCardId, {
+        .post("/home/myideas/delete/" + clickedCardId, {
           cardId: clickedCardId
         })
         .then(function(response) {
-          location.reload();
+          window.location.replace("/home/myideas");
+          // location.reload();
           currentObj.output = response.data;
         })
         .catch(function(error) {
           currentObj.output = error;
         });
     }
-  }
   }
 };
 </script>

@@ -43,7 +43,7 @@ class IdeaDetailController extends Controller
    $idea->likes =  $countLikes;
     $idea->save();
 
- 
+    print_r($countLikes);
  
    
    

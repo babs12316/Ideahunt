@@ -11585,19 +11585,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  //props: ["user_id"],
   data: function data() {
     return {
       title: "",
@@ -11628,14 +11617,12 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       // Prevent modal from closing
-      bvModalEvt.preventDefault(); // console.log("submit!");
-
+      bvModalEvt.preventDefault();
       this.$v.$touch();
 
       if (this.$v.$invalid) {
         this.submitStatus = "ERROR";
       } else {
-        // do your submit logic here
         this.submitStatus = "PENDING";
         setTimeout(function () {
           _this.submitStatus = "OK";
@@ -11650,7 +11637,7 @@ __webpack_require__.r(__webpack_exports__);
           title: this.title,
           description: this.description
         }).then(function (response) {
-          location.reload();
+          window.location.replace("/home");
           currentObj.output = response.data;
         })["catch"](function (error) {
           currentObj.output = error;
@@ -11696,6 +11683,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["title", "description", "ideaid", "likes", "ismyidea", "likestatus", "myideaid", "isthismyidea"],
   data: function data() {
@@ -11707,14 +11697,10 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    cardClicked: function cardClicked(event) {
-      // alert("i am clicked"+event.target.getAttribute('ideaId'));
-      console.log(event.target.getAttribute("ideaid"));
-
+    cardClicked: function cardClicked(clickedCardId) {
       var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
       var currentObj = this;
-      var clickedCardId = event.target.getAttribute("ideaid");
       this.url = "/home/idea/" + clickedCardId;
       axios.get("/home/?id=" + clickedCardId).then(function (response) {
         currentObj.output = response.data;
@@ -11779,7 +11765,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     close: function close() {
-      window.location.replace("/home/myideas");
+      window.history.go(-1);
     }
   }
 });
@@ -11814,11 +11800,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["ideas", "likestatus", "myideas", "ismyidea"],
-  // ideas- array of all users ideas,likestatus- array of status of likes for logged in user, myideas-array of ideas for logged in user 
+  // ideas- array of all users ideas,likestatus- array of status of likes for logged in user, myideas-array of ideas for logged in user
   data: function data() {
     //ismyidea- to check if user is checking own ideas
     return {
@@ -11862,6 +11846,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["ismyidea", "ideaid"],
   data: function data() {
@@ -11874,24 +11876,21 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs["modal-delete"].hide();
       window.history.go(-1);
     },
-    deleteClicked: function deleteClicked(event) {
-      var clickedCardId = event.target.parentElement.parentElement.getAttribute("ideaid"); //  alert("card clicked is" + clickedCardId);
-
+    deleteClicked: function deleteClicked(clickedCardId) {
       this.deleteurl = "/home/myideas/delete/" + clickedCardId; // send data to submit
 
-      if (clickedCardId) {
-        var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+      var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 
-        var currentObj = this;
-        axios.post("/home/myIdeas/delete/" + clickedCardId, {
-          cardId: clickedCardId
-        }).then(function (response) {
-          location.reload();
-          currentObj.output = response.data;
-        })["catch"](function (error) {
-          currentObj.output = error;
-        });
-      }
+      var currentObj = this;
+      axios.post("/home/myideas/delete/" + clickedCardId, {
+        cardId: clickedCardId
+      }).then(function (response) {
+        window.location.replace("/home/myideas"); // location.reload();
+
+        currentObj.output = response.data;
+      })["catch"](function (error) {
+        currentObj.output = error;
+      });
     }
   }
 });
@@ -11923,14 +11922,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    editClicked: function editClicked(event) {
-      // alert("i am clicked" + event.target.parentElement.parentElement.getAttribute("ideaid"));
-      //  console.log("my edit id is"+ event.target.parentElement.getAttribute('ideaId'));
-      var clickedCardId = event.target.parentElement.parentElement.getAttribute("ideaid");
-
-      if (clickedCardId) {
-        this.editurl = "/home/myideas/edit/" + clickedCardId;
-      }
+    editClicked: function editClicked(clickedCardId) {
+      this.editurl = "/home/myideas/edit/" + clickedCardId;
     }
   }
 });
@@ -12064,6 +12057,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["title", "ismyidea", "ideaid"]
 });
@@ -12091,11 +12087,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["ismyidea", "likes", "likestatus", "ideaid", "myideaid"],
   data: function data() {
@@ -12106,7 +12097,6 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   beforeMount: function beforeMount() {
-    //  alert("i am called");
     for (var i = 0; i < this.myideaid.length; i++) {
       if (this.myideaid[i]["id"] === this.ideaid) {
         this.isthismyidea = 1;
@@ -12115,15 +12105,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    likeClicked: function likeClicked(event) {
-      var clickedCardId = event.target.parentElement.parentElement.getAttribute("ideaid");
-
-      if (clickedCardId) {
-        if (this.currentlikestatus === 0) {
-          this.currentlikestatus = 1;
-        } else if (this.currentlikestatus === 1) {
-          this.currentlikestatus = 0;
-        }
+    likeClicked: function likeClicked(clickedCardId) {
+      if (this.currentlikestatus === 0) {
+        this.currentlikestatus = 1;
+      } else if (this.currentlikestatus === 1) {
+        this.currentlikestatus = 0;
       }
 
       var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -12131,10 +12117,9 @@ __webpack_require__.r(__webpack_exports__);
       var currentObj = this;
       axios.post("/home/idea/" + clickedCardId, {
         cardId: clickedCardId,
-        //   likes: this.numberLikes,
         likestatus: this.currentlikestatus
       }).then(function (response) {
-        location.reload();
+        currentObj.numberLikes = response.data;
         currentObj.output = response.data;
       })["catch"](function (error) {
         currentObj.output = error;
@@ -44619,7 +44604,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".addIcon[data-v-3f67bee0] {\n  position: inherit;\n  float: right;\n  margin-top: -66px;\n  font-size: 30px;\n  color: green;\n}\n.error[data-v-3f67bee0] {\n  color: red;\n}", ""]);
+exports.push([module.i, ".addIcon[data-v-3f67bee0] {\n  position: inherit;\n  float: right;\n  margin-top: -66px;\n  font-size: 30px;\n  color: green;\n}\n.addIcon[data-v-3f67bee0]:hover {\n  cursor: pointer;\n}\n.error[data-v-3f67bee0] {\n  color: red;\n}", ""]);
 
 // exports
 
@@ -77153,7 +77138,7 @@ var render = function() {
               }
             ],
             staticClass: "icon alt",
-            attrs: { icon: "plus-circle", title: "add a post" }
+            attrs: { icon: "plus-circle", title: "Add your own idea" }
           })
         ],
         1
@@ -77329,10 +77314,13 @@ var render = function() {
         "div",
         {
           staticClass: "idea",
-          attrs: { ideaid: _vm.ideaid },
+          attrs: {
+            ideaid: _vm.ideaid,
+            title: "Click on me to see detail view!"
+          },
           on: {
             click: function($event) {
-              return _vm.cardClicked($event)
+              return _vm.cardClicked(_vm.ideaid)
             }
           }
         },
@@ -77358,11 +77346,8 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("ideadescription-component", {
-                attrs: {
-                  ideaid: _vm.ideaid,
-                  description: this.description,
-                  classname: "idea-description"
-                }
+                staticClass: "idea-description",
+                attrs: { ideaid: _vm.ideaid, description: this.description }
               })
             ],
             1
@@ -77542,28 +77527,85 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    this.ismyidea === "1"
-      ? _c(
-          "a",
-          {
-            staticClass: "deleteIcon",
-            attrs: { href: _vm.deleteurl, ideaid: this.ideaid }
+  return _c(
+    "div",
+    [
+      this.ismyidea === "1"
+        ? _c(
+            "a",
+            {
+              directives: [
+                {
+                  name: "b-modal",
+                  rawName: "v-b-modal",
+                  value: "my-modal-delete" + this.ideaid,
+                  expression: "'my-modal-delete'+this.ideaid"
+                }
+              ],
+              staticClass: "deleteIcon",
+              attrs: { href: _vm.deleteurl, ideaid: this.ideaid }
+            },
+            [_c("font-awesome-icon", { attrs: { icon: "trash" } })],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          ref: "modal-delete",
+          attrs: {
+            id: "my-modal-delete" + this.ideaid,
+            ideaid: this.ideaid,
+            "hide-footer": ""
           },
-          [
-            _c("font-awesome-icon", {
-              attrs: { icon: "trash" },
+          scopedSlots: _vm._u([
+            {
+              key: "modal-title",
+              fn: function() {
+                return [
+                  _c("code", [
+                    _vm._v("Are you sure, you want to delete this idea?")
+                  ])
+                ]
+              },
+              proxy: true
+            }
+          ])
+        },
+        [
+          _vm._v(" "),
+          _c(
+            "b-button",
+            {
+              staticClass: "mt-1",
               on: {
                 click: function($event) {
-                  return _vm.deleteClicked($event)
+                  return _vm.deleteClicked(_vm.ideaid)
                 }
               }
-            })
-          ],
-          1
-        )
-      : _vm._e()
-  ])
+            },
+            [_vm._v("Yes, I am sure!")]
+          ),
+          _vm._v(" "),
+          _c(
+            "b-button",
+            {
+              staticClass: "mt-1",
+              on: {
+                click: function($event) {
+                  return _vm.close()
+                }
+              }
+            },
+            [_vm._v("Cancel")]
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -77600,7 +77642,7 @@ var render = function() {
               attrs: { icon: "edit" },
               on: {
                 click: function($event) {
-                  return _vm.editClicked($event)
+                  return _vm.editClicked(_vm.ideaid)
                 }
               }
             })
@@ -77644,7 +77686,7 @@ var render = function() {
             {
               key: "modal-title",
               fn: function() {
-                return [_c("code", [_vm._v(" Edit your Idea")])]
+                return [_c("code", [_vm._v("Edit your Idea")])]
               },
               proxy: true
             }
@@ -77823,7 +77865,7 @@ var render = function() {
         attrs: { icon: "thumbs-up", ideaid: _vm.ideaid },
         on: {
           click: function($event) {
-            return _vm.likeClicked($event)
+            return _vm.likeClicked(_vm.ideaid)
           }
         }
       }),

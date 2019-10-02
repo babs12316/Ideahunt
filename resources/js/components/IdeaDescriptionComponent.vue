@@ -1,13 +1,13 @@
 <template>
-    <div>
-      <p :ideaid="this.ideaid" :class="this.classname">{{this.description}}</p>
-    </div>
+  <div>
+    <p :ideaid="this.ideaid" :class="this.classname">{{this.description}}</p>
+  </div>
 </template>
 
 <script>
-    export default {
-        props:["description","ideaid","classname"]
-    }
+export default {
+  props: ["description", "ideaid", "classname"]
+};
 </script>
 
 <style lang="scss" scoped>
@@ -37,8 +37,6 @@
   }
 }
 
-
-
 @media (min-width: 992px) {
   .idea-description {
     line-height: 3.7em !important;
@@ -46,11 +44,6 @@
 }
 
 .idea-description {
-  @include multiLineEllipsis(
-    $lineHeight: 1.2em,
-    $lineCount: 3,
-    $bgColor: #fff
-  );
+  @include multiLineEllipsis($lineHeight: 1.2em, $lineCount: 3, $bgColor: #fff);
 }
-
 </style>

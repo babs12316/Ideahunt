@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     close: function() {
-       window.location.replace("/home/myideas");
+     window.history.go(-1);
     }
   }
 };

@@ -2,7 +2,7 @@
   <div>
     <b-modal id="bv-modal-example" ref="modal" hide-footer>
       <template v-slot:modal-title>
-        <code> Edit your Idea</code> 
+        <code>Edit your Idea</code>
       </template>
       <div class="d-block text-center">
         <div v-for="idea in this.ideaArray" :key="idea.id" :id="idea.id" class="submit">
@@ -26,7 +26,7 @@
 
 <style lang="scss">
 .close {
-  display:none;
+  display: none;
 }
 
 .form-control {
@@ -54,9 +54,9 @@ export default {
     });
   },
   methods: {
-    close(){
+    close() {
       this.$refs["modal"].hide();
-       window.history.go(-1);
+      window.history.go(-1);
     },
     save() {
       // send data to submit
@@ -69,7 +69,7 @@ export default {
           id: $("div.submit").attr("id")
         })
         .then(function(response) {
-           alert("Changes are saved!");
+          alert("Changes are saved!");
           window.history.go(-1);
           currentObj.output = response.data;
         })
