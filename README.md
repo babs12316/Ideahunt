@@ -17,4 +17,5 @@ After the git clone, run this commands & editions one after one to start the app
 * Copy my .env.example file and name it like .env
 * php artisan config:cache
 * php artisan serve
-Try it yourself & enjoy!
+
+Hope you will find it useful!
