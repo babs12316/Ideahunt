@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="idea" :ideaid="ideaid" @click="cardClicked(ideaid)" title="Click on me to see detail view!">
+    <div class="idea" :ideaid="ideaid" @click="cardClicked(ideaid)" >
       <editicon-component :ismyidea="this.isthismyidea" :ideaid="ideaid"></editicon-component>
       <deleteicon-component :ismyidea="this.ismyidea" :ideaid="ideaid"></deleteicon-component>
-      <a :href="url" :ideaid="ideaid">
+      <a :href="url" :ideaid="ideaid" title="Click on me to see detail view!">
         <ideatitle-component :title="this.title" :ideaid="ideaid" :ismyidea="this.ismyidea"></ideatitle-component>
         <ideadescription-component
           :ideaid="ideaid"
