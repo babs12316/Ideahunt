@@ -60,9 +60,12 @@ export default {
   color: green;
   margin-top: 3% !important;
     margin-left: 1% !important;
+    display:none!important
 }
 .notLiked{
     margin-top: 3% !important;
     margin-left: 1% !important;
+    display:none!important
 }
+
 </style>
