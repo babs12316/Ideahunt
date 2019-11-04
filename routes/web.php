@@ -16,15 +16,14 @@ Route::get('/', function () {
 });
 Auth::routes();
 Route::post('/home', 'HomeController@addIdea')->name('home');
-Route::get('/home', 'HomeController@displayIdea')->name('display');
+Route::get('/home', 'HomeController@displayIdea')->name('home');
 
-//Route::get('/home/?id={id}', 'HomeController@cardData')->name('display');
-Route::get('/home/idea/{id}', 'IdeaDetailController@cardData')->name('display');
-Route::post('/home/idea/{id}', 'IdeaDetailController@insertLikes')->name('display');
 
-Route::get('/home/myideas', 'MyIdeasController@show')->name('display');
-Route::get('/home/myideas/edit/{id}', 'ModifyIdeaController@edit')->name('display');
+Route::get('/home/idea/{id}', 'IdeaDetailController@cardData')->name('detail');
+Route::post('/home/idea/{id}', 'IdeaDetailController@insertLikes')->name('detail');
 
-Route::post('/home/myideas', 'ModifyIdeaController@update')->name('display');
-Route::post('/home/myideas/delete/{id}', 'ModifyIdeaController@delete')->name('display');
-//Route::post('/home/myIdeas/delete/{id}', 'IdeaDetailController@deleteLikes')->name('display');
+Route::get('/home/myideas', 'MyIdeasController@show')->name('userideas');
+Route::get('/home/myideas/edit/{id}', 'ModifyIdeaController@edit')->name('cruduseridea');
+
+Route::post('/home/myideas', 'ModifyIdeaController@update')->name('cruduseridea');
+Route::post('/home/myideas/delete/{id}', 'ModifyIdeaController@delete')->name('cruduseridea');
